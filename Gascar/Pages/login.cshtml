@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Login";
 }
-
 <head>
     <link rel="stylesheet" href="~/css/L&R.css">
 </head>
@@ -12,7 +11,6 @@
         <h1>login</h1>
         <p>Accedi per ricaricare l'auto</p>
 
-        <p></p>
 
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
@@ -34,5 +32,8 @@
         <p class="switch">
             non hai un account?
             <a asp-page="/Register">Registrati</a>
+        </p>
+        <p>Ritorna nella pagina principale
+            <a asp-page="/index">Home</a>
         </p>
     </form>
