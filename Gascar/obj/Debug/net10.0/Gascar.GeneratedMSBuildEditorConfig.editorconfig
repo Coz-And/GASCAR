@@ -19,49 +19,49 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = Gascar
 build_property.RootNamespace = Gascar
-build_property.ProjectDir = D:\Documents\GitHub\Gascar\gascar\
+build_property.ProjectDir = D:\Documents\GitHub\Gascar\Gascar\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Documents\GitHub\Gascar\gascar
+build_property.MSBuildProjectDirectory = D:\Documents\GitHub\Gascar\Gascar
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/Documents/GitHub/Gascar/gascar/Pages/Error.cshtml]
+[D:/Documents/GitHub/Gascar/Gascar/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Documents/GitHub/Gascar/gascar/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Documents/GitHub/Gascar/gascar/Pages/login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcbG9naW4uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Documents/GitHub/Gascar/gascar/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Documents/GitHub/Gascar/gascar/Pages/register.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNccmVnaXN0ZXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Documents/GitHub/Gascar/gascar/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Documents/GitHub/Gascar/Gascar/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Documents/GitHub/Gascar/gascar/Pages/_ViewImports.cshtml]
+[D:/Documents/GitHub/Gascar/Gascar/Pages/View/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Documents/GitHub/Gascar/Gascar/Pages/View/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1xsb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Documents/GitHub/Gascar/Gascar/Pages/View/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1xQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Documents/GitHub/Gascar/Gascar/Pages/View/register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVmlld1xyZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Documents/GitHub/Gascar/Gascar/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Documents/GitHub/Gascar/gascar/Pages/_ViewStart.cshtml]
+[D:/Documents/GitHub/Gascar/Gascar/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Documents/GitHub/Gascar/gascar/Pages/Shared/_Layout.cshtml]
+[D:/Documents/GitHub/Gascar/Gascar/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-azh43m9bhn
