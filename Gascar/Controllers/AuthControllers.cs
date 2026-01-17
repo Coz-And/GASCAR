@@ -1,55 +1,48 @@
-using Gascar.Data;
 using Gascar.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 public class AuthController : Controller
 {
-    private readonly AppDbContext _context;
-    private readonly PasswordHasher<User> _hasher = new();
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AuthController(AppDbContext context)
+    public AuthController(
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager)
     {
-        _context = context;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     // GET
-    public IActionResult Login() => View();
+    public IActionResult Login()
+    {
+        return View();
+    }
 
     // POST
     [HttpPost]
     public async Task<IActionResult> Login(string username, string password)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-        if (user == null)
-            return View("Login");
+        var result = await _signInManager.PasswordSignInAsync(
+            username,
+            password,
+            isPersistent: false,
+            lockoutOnFailure: false);
 
-        var result = _hasher.VerifyHashedPassword(user, user.Password, password);
-        if (result == PasswordVerificationResult.Failed)
-            return View("Login");
-
-        var claims = new List<Claim>
+        if (result.Succeeded)
         {
-            new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Role, user.Role),
-            new Claim("IsPremium", user.IsPremium.ToString())
-        };
+            return RedirectToAction("Index", "Home");
+        }
 
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            new ClaimsPrincipal(identity));
-
-        return RedirectToAction("Index", "Home");
+        ModelState.AddModelError("", "Username o password errati");
+        return View();
     }
 
     public async Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync();
+        await _signInManager.SignOutAsync();
         return RedirectToAction("Login");
     }
 }

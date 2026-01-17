@@ -3,37 +3,20 @@
 @{
     ViewData["Title"] = "Login";
 }
-<head>
-    <link rel="stylesheet" href="~/css/L&R.css">
-</head>
-<div class="auth-container">
-    <form method="post" class="auth-card">
-        <h1>login</h1>
-        <p>Accedi per ricaricare l'auto</p>
+<h2>Login</h2>
 
+<form method="post">
+    <input name="email" placeholder="Email" required />
+    <input name="password" type="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+</form>
 
-        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-        {
-            <div class="error">@Model.ErrorMessage</div>
-        }
+<p>
+    Non hai un account?
+    <a href="/Account/Register">Registrati</a>
+</p>
 
-        <div class="field">
-            <label>Username</label>
-            <input asp-for="Username" required />
-        </div>
-        <div class="field">
-            <label>Password</label>
-            <input asp-for="Password" type="password" required />
-        </div>
-
-
-        <button type="submit" class="btn">Login</button>
-
-        <p class="switch">
-            non hai un account?
-            <a asp-page="/Register">Registrati</a>
-        </p>
-        <p>Ritorna nella pagina principale
-            <a asp-page="/index">Home</a>
-        </p>
-    </form>
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}

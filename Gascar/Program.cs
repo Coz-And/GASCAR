@@ -1,29 +1,23 @@
 using Gascar.Data;
+using Gascar.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// MVC / Razor
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
-app.Run();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=gascar.db"));
-
-builder.Services.AddSession();
-
-builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", options =>
-    {
-        options.LoginPath = "/Auth/Login";
-        options.LogoutPath = "/Auth/Logout";
-    });
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
-app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+
+app.MapDefaultControllerRoute();
+app.Run();
