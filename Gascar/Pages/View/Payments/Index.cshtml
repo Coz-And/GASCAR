@@ -1,0 +1,21 @@
+@model IEnumerable<Gascar.Models.Payment>
+
+<h2>I tuoi pagamenti</h2>
+
+<table border="1">
+    <tr>
+        <th>Data</th>
+        <th>Importo</th>
+    </tr>
+
+@foreach (var p in Model)
+{
+    <tr>
+        <td>@p.Date</td>
+        <td>€ @p.Amount</td>
+    </tr>
+}
+</table>
+
+<br />
+<a href="/Payments/Create">Nuovo pagamento</a>

@@ -1,16 +1,20 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace Gascar.Models
+namespace Gascar.Models;
+
+public class Payment
 {
-    public class Payment
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public int UserId { get; set; }
+    [Required]
+    public decimal Amount { get; set; }
 
-        public decimal ParkingCost { get; set; }
-        public decimal ChargingCost { get; set; }
+    [Required]
+    public DateTime Date { get; set; } = DateTime.UtcNow;
 
-        public DateTime PaymentDate { get; set; }
-    }
+    // Relazione con Identity
+    [Required]
+    public string UserId { get; set; } = null!;
+
+    public ApplicationUser User { get; set; } = null!;
 }

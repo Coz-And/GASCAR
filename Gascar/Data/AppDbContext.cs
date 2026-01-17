@@ -12,7 +12,5 @@ public class ApplicationDbContext
     {
     }
 
-    public DbSet<Parking> Parking { get; set; }
-    public DbSet<ChargingRequest> ChargingRequests { get; set; }
     public DbSet<Payment> Payments { get; set; }
 }
