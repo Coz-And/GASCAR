@@ -1,0 +1,23 @@
+@model IEnumerable<Gascar.Models.ParkingSpot>
+
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+@foreach (var spot in Model)
+{
+    <div class="col-md-3 mb-3">
+        <div class="card @(spot.IsOccupied ? "border-danger" : "border-success")">
+            <div class="card-body">
+                <h5>Spot @spot.Number</h5>
+                <span class="badge @(spot.IsOccupied ? "bg-danger" : "bg-success")">
+                    @(spot.IsOccupied ? "Occupied" : "Free")
+                </span>
+            </div>
+        </div>
+    </div>
+}
+</div>
+<a class="btn btn-secondary"
+   asp-action="Payments">
+   View Payments
+</a>

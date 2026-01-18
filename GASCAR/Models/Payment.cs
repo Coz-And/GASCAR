@@ -12,7 +12,11 @@ public class Payment
 
     public PaymentType Type { get; set; }
 
-    public decimal Amount { get; set; }   // ⬅️ CAMBIATO
+    public decimal Amount { get; set; }   
 
     public DateTime Date { get; set; }
-}
+      public required string UserId { get; set; }
+    public required ApplicationUser User { get; set; }
+};
+public required ApplicationUser User { get; set; }
+

@@ -19,4 +19,6 @@ public class Charging
 
     public TimeSpan EstimatedTime { get; set; }
     public double ConsumedKw { get; set; }
-}
+};
+public required Car Car { get; set; }
+

@@ -1,0 +1,44 @@
+@model IEnumerable<Gascar.Models.Payment>
+
+<h2>Payments</h2>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-3">
+        <input type="date" name="fromDate" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <input type="date" name="toDate" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <select name="type" class="form-control">
+            <option value="">All</option>
+            <option value="Stopover">Stopover</option>
+            <option value="Charging">Charging</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Type</th>
+            <th>Amount (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var p in Model)
+{
+    <tr>
+        <td>@p.Date.ToString("dd/MM/yyyy HH:mm")</td>
+        <td>@p.User.Email</td>
+        <td>@p.Type</td>
+        <td>@p.Amount.ToString("0.00")</td>
+    </tr>
+}
+    </tbody>
+</table>

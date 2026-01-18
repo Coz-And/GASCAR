@@ -22,4 +22,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapDefaultControllerRoute();
+await DbSeeder.SeedAsync(app.Services);
 app.Run();

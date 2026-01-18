@@ -25,11 +25,11 @@ public class ApplicationDbContext
 
     // Configuration
     modelBuilder.Entity<Configuration>()
-        .Property(c => c.CostoKW)
+        .Property(c => c.CostPerKw)
         .HasPrecision(10, 2);
 
     modelBuilder.Entity<Configuration>()
-        .Property(c => c.CostoOraSosta)
+        .Property(c => c.StopoverCostPerHour)
         .HasPrecision(10, 2);
 
     // Payment
@@ -42,6 +42,7 @@ public class ApplicationDbContext
         .Property(s => s.TotalCost)
         .HasPrecision(10, 2);
 }
+
 }
 
 

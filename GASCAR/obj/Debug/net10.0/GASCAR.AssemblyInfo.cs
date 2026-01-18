@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GASCAR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd0891c56ce5ccf6a4018212ed14c5e39d8c6fc1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d5c79ed047868b19e516b3cf180c7686e3975d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("GASCAR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GASCAR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
