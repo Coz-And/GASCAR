@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+namespace Gascar.Models;
 
 public enum UserRole { Admin, Automobilista }
 public enum UserType { Base, Premium }

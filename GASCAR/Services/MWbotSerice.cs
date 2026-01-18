@@ -1,47 +1,46 @@
-using Microsoft.EntityFrameworkCore;
 using Gascar.Data;
 using Gascar.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Gascar.Services
+namespace Gascar.Services;
+
+public class MWbotService : BackgroundService
 {
-    public class MWbotService : BackgroundService
+    private readonly IServiceScopeFactory _scopeFactory;
+
+    public MWbotService(IServiceScopeFactory scopeFactory)
     {
-        private readonly IServiceScopeFactory _scopeFactory;
+        _scopeFactory = scopeFactory;
+    }
 
-        public MWbotService(IServiceScopeFactory scopeFactory)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _scopeFactory = scopeFactory;
-        }
+            using var scope = _scopeFactory.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
+            var charging = await db.Chargings
+                .Include(c => c.Car)
+                .Where(c => c.State == ChargingState.Waiting)
+                .OrderBy(c => c.Id)
+                .FirstOrDefaultAsync(stoppingToken);
+
+            if (charging != null)
             {
-                using var scope = _scopeFactory.CreateScope();
-                var db = scope.ServiceProvider
-                              .GetRequiredService<ApplicationDbContext>();
+                charging.State = ChargingState.InProgress;
+                await db.SaveChangesAsync(stoppingToken);
 
-                var ricarica = await db.Ricariche
-                    .Include(r => r.Auto)
-                    .Where(r => r.Stato == StatoRicarica.InCoda)
-                    .OrderBy(r => r.Id)
-                    .FirstOrDefaultAsync(stoppingToken);
+                await Task.Delay(charging.EstimatedTime, stoppingToken);
 
-                if (ricarica != null)
-                {
-                    ricarica.Stato = StatoRicarica.InRicarica;
-                    await db.SaveChangesAsync(stoppingToken);
+                charging.State = ChargingState.Completed;
+                charging.Car.CurrentChargePercentage =
+                    charging.TargetChargePercentage;
 
-                    await Task.Delay(ricarica.TempoStimato, stoppingToken);
-
-                    ricarica.Stato = StatoRicarica.Completata;
-                    ricarica.Auto.PercentualeAttuale = ricarica.PercentualeRichiesta;
-
-                    await db.SaveChangesAsync(stoppingToken);
-                }
-
-                await Task.Delay(5000, stoppingToken);
+                await db.SaveChangesAsync(stoppingToken);
             }
+
+            await Task.Delay(5000, stoppingToken);
         }
     }
 }

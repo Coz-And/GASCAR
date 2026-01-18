@@ -1,5 +1,8 @@
+using Gascar.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+namespace Gascar.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class AdminController : Controller
@@ -13,22 +16,7 @@ public class AdminController : Controller
 
     public IActionResult Dashboard()
     {
-        var posti = _db.PostiAuto.ToList();
-        return View(posti);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AggiornaCosti(decimal costoOra, decimal costoKw)
-    {
-        var config = await _db.Configurazioni.FirstAsync();
-        config.CostoOraSosta = costoOra;
-        config.CostoKW = costoKw;
-        await _db.SaveChangesAsync();
-        return RedirectToAction("Dashboard");
-    }
-
-    public IActionResult Pagamenti()
-    {
-        return View(_db.Pagamenti.ToList());
+        var spots = _db.ParkingSpots.ToList();
+        return View(spots);
     }
 }

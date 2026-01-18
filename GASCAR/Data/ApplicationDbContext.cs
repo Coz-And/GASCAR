@@ -1,22 +1,48 @@
+using Gascar.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Gascar.Models;
 
-namespace Gascar.Data
+namespace Gascar.Data;
+
+public class ApplicationDbContext
+    : IdentityDbContext<ApplicationUser>
 {
-    public class ApplicationDbContext 
-        : IdentityDbContext<ApplicationUser>
+    public ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Auto> Auto { get; set; }
-        public DbSet<PostoAuto> PostiAuto { get; set; }
-        public DbSet<Sosta> Soste { get; set; }
-        public DbSet<Ricarica> Ricariche { get; set; }
-        public DbSet<Pagamento> Pagamenti { get; set; }
-        public DbSet<Configurazione> Configurazioni { get; set; }
     }
+
+    public DbSet<Car> Cars { get; set; }
+    public DbSet<ParkingSpot> ParkingSpots { get; set; }
+    public DbSet<Charging> Chargings { get; set; }
+    public DbSet<Stopover> Stopovers { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Configuration> Configurations { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    // Configuration
+    modelBuilder.Entity<Configuration>()
+        .Property(c => c.CostoKW)
+        .HasPrecision(10, 2);
+
+    modelBuilder.Entity<Configuration>()
+        .Property(c => c.CostoOraSosta)
+        .HasPrecision(10, 2);
+
+    // Payment
+    modelBuilder.Entity<Payment>()
+        .Property(p => p.Amount)
+        .HasPrecision(10, 2);
+
+    // Stopover
+    modelBuilder.Entity<Stopover>()
+        .Property(s => s.TotalCost)
+        .HasPrecision(10, 2);
 }
+}
+
+
+

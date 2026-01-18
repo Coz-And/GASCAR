@@ -1,3 +1,5 @@
+namespace Gascar.Models;
+
 public class Configuration
 {
     public int Id { get; set; }

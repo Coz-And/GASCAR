@@ -1,11 +1,14 @@
-public class Stopsover
+namespace Gascar.Models;
+
+public class Stopover
 {
     public int Id { get; set; }
-    public int AutoId { get; set; }
-    public Auto Auto { get; set; }
 
-    public DateTime OrarioIngresso { get; set; }
-    public DateTime? OrarioUscita { get; set; }
+    public int CarId { get; set; }
+    public required Car Car { get; set; }
 
-    public decimal CostoTotale { get; set; }
+    public DateTime EntryTime { get; set; }
+    public DateTime? ExitTime { get; set; }
+
+    public decimal TotalCost { get; set; }
 }
