@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GASCAR.API.Data;
-using GASCAR.API.Service;   // 👈 UNA SOLA VOLTA
+using GASCAR.API.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Controllers
 builder.Services.AddControllers();
 
-// Swagger (senza OpenApi)
+// Swagger (ORA FUNZIONA SU .NET 8)
 builder.Services.AddSwaggerGen();
 
 // JWT Auth
