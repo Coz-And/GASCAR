@@ -8,12 +8,13 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped<AuthStateService>();
-builder.Services.AddScoped<ApiService>();
-
+// 🔌 API URL — DEVE ESSERE 5184
 builder.Services.AddScoped(sp => new HttpClient
 {
-    BaseAddress = new Uri("http://localhost:5000/")
+    BaseAddress = new Uri("http://localhost:5184/")
 });
+
+builder.Services.AddScoped<ApiService>();
+builder.Services.AddScoped<AuthStateService>();
 
 await builder.Build().RunAsync();
