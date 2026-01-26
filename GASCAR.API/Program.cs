@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Components.WebAssembly.Server;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
+
+app.MapControllers();
+app.MapFallbackToFile("index.html");
+
 
 app.UseSwagger();
 app.UseSwaggerUI();
