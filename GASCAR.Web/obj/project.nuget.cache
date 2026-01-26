@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EeXiJtQWnHs=",
+  "dgSpecHash": "MTUo8aQa/mM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.web\\GASCAR.Web.csproj",
+  "projectFilePath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.Web\\GASCAR.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\andrea.cozzi\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.1\\microsoft.aspnetcore.authorization.8.0.1.nupkg.sha512",
     "C:\\Users\\andrea.cozzi\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.1\\microsoft.aspnetcore.components.8.0.1.nupkg.sha512",

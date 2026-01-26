@@ -1,0 +1,38 @@
+@page "/payments"
+@using GASCAR.Web.Models
+@using GASCAR.Web.Services
+
+@inject ApiService Api
+
+<h3>💳 Pagamenti</h3>
+
+@if (payments == null)
+{
+    <p>Caricamento...</p>
+}
+else if (payments.Count == 0)
+{
+    <p>Nessun pagamento trovato.</p>
+}
+else
+{
+    <ul>
+        @foreach (var p in payments)
+        {
+            <li>
+                @p.EndTime.ToString("dd/MM/yyyy HH:mm")
+                - €@p.Amount
+                - @p.Type
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    List<PaymentDto>? payments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        payments = await Api.GetPayments();
+    }
+}

@@ -1,0 +1,29 @@
+@page "/cars"
+@using GASCAR.Web.Services
+
+@inject ApiService Api
+
+<h3>Le mie auto</h3>
+
+@if (cars == null)
+{
+    <p>Caricamento...</p>
+}
+else
+{
+    <ul>
+        @foreach (var c in cars)
+        {
+            <li>@c.Model - @c.CurrentChargePercent%</li>
+        }
+    </ul>
+}
+
+@code {
+    List<CarDto>? cars;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await Api.GetCars();
+    }
+}

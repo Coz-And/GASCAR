@@ -1,0 +1,42 @@
+@page "/login"
+@using GASCAR.Web.Models
+@using GASCAR.Web.Services
+
+@inject ApiService Api
+@inject NavigationManager Nav
+
+<h3>🔐 Login</h3>
+
+@if (error != null)
+{
+    <p style="color:red">@error</p>
+}
+
+<EditForm Model="model" OnValidSubmit="Submit">
+    <InputText @bind-Value="model.Email" placeholder="Email" />
+    <br /><br />
+    <InputText @bind-Value="model.Password" type="password" placeholder="Password" />
+    <br /><br />
+    <button type="submit">Login</button>
+</EditForm>
+
+@code {
+    LoginDto model = new();
+    string? error;
+
+    async Task Submit()
+    {
+        error = null;
+
+        var ok = await Api.Login(model);
+
+        if (ok)
+        {
+            Nav.NavigateTo("/");
+        }
+        else
+        {
+            error = "Email o password errati";
+        }
+    }
+}

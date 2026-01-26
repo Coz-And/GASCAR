@@ -1,0 +1,36 @@
+@page "/charging"
+@using GASCAR.Web.Services
+
+
+@inject ApiService Api
+@inject NavigationManager Nav
+
+
+<h3>⚡ Prenotazione ricarica</h3>
+
+@if (!requested)
+{
+    <button @onclick="Request">Avvia Ricarica</button>
+}
+else
+{
+    <p>✅ Ricarica prenotata!</p>
+}
+
+@code {
+    bool requested;
+    int carId;
+
+    protected override void OnInitialized()
+    {
+        var uri = Nav.ToAbsoluteUri(Nav.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        int.TryParse(query["carId"], out carId);
+    }
+
+    async Task Request()
+    {
+        var ok = await Api.RequestCharging(carId);
+        if (ok) requested = true;
+    }
+}
