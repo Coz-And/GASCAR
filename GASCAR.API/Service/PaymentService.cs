@@ -1,4 +1,5 @@
 using GASCAR.API.Data;
+using GASCAR.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GASCAR.API.Service;

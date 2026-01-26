@@ -17,35 +17,49 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseInMemoryDatabase("gascar"));
 
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<MWBotService>();
+builder.Services.AddScoped<PaymentService>();
 
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("AllowBlazor", p =>
-        p.WithOrigins("http://localhost:5213")
+        p.WithOrigins("http://localhost:5213", "http://localhost:5174")
          .AllowAnyHeader()
          .AllowAnyMethod());
 });
+
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "SUPER_SECRET_KEY_123456";
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "SmartParking";
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "SmartParkingUsers";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
     {
         opt.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidIssuer = jwtIssuer,
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
             ValidateLifetime = true,
-            IssuerSigningKey =
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SUPER_SECRET_KEY_123"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 
 var app = builder.Build();
+
+// Seed database with initial data
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.Seed(db);
+}
+
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-
 
 app.UseSwagger();
 app.UseSwaggerUI();

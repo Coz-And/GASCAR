@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GASCAR.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f3df0f1e3031c9beabb704b24fc6a6df1eaefdd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bd3ccb88dbd172a9305dab3f032e407c0bba297")]
 [assembly: System.Reflection.AssemblyProductAttribute("GASCAR.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GASCAR.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

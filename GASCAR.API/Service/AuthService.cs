@@ -4,10 +4,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using GASCAR.API.Data;
 using Microsoft.EntityFrameworkCore;
-using GASCAR.API.Models;         // per User
-   // per RegisterDto / LoginDto
+using GASCAR.API.Models;
+using GASCAR.API.Models.Auth;
 
-namespace GASCAR.API.Service;    // 👈 QUESTO È IL FIX CHIAVE
+namespace GASCAR.API.Service;
 
 public class AuthService
 {

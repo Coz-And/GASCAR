@@ -26,32 +26,107 @@ public class ApiService
 
     public async Task<List<CarDto>> GetCars()
     {
-        AttachToken();
-        return await _http.GetFromJsonAsync<List<CarDto>>("api/cars")
-               ?? new();
+        try
+        {
+            AttachToken();
+            return await _http.GetFromJsonAsync<List<CarDto>>("api/cars")
+                   ?? new();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore GetCars: {ex.Message}");
+            return new();
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout GetCars - API non risponde");
+            return new();
+        }
     }
 
     public async Task<bool> Login(LoginDto dto)
     {
-        var res = await _http.PostAsJsonAsync("api/auth/login", dto);
-        if (!res.IsSuccessStatusCode) return false;
+        try
+        {
+            var res = await _http.PostAsJsonAsync("api/auth/login", dto);
+            if (!res.IsSuccessStatusCode) return false;
 
-        var token = await res.Content.ReadAsStringAsync();
-        _auth.SetToken(token.Replace("\"", ""));
-        return true;
+            var token = await res.Content.ReadAsStringAsync();
+            _auth.SetToken(token.Replace("\"", ""));
+            return true;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore Login: {ex.Message}");
+            return false;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout Login - API non risponde");
+            return false;
+        }
     }
 
     public async Task<List<PaymentDto>> GetPayments()
     {
-        AttachToken();
-        return await _http.GetFromJsonAsync<List<PaymentDto>>("api/payments")
-               ?? new();
+        try
+        {
+            AttachToken();
+            return await _http.GetFromJsonAsync<List<PaymentDto>>("api/payments")
+                   ?? new();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore GetPayments: {ex.Message}");
+            return new();
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout GetPayments - API non risponde");
+            return new();
+        }
     }
 
     public async Task<bool> RequestCharging(int carId)
     {
-        AttachToken();
-        var res = await _http.PostAsync($"api/charging/{carId}", null);
-        return res.IsSuccessStatusCode;
+        try
+        {
+            AttachToken();
+            var res = await _http.PostAsync($"api/charging/{carId}", null);
+            return res.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore RequestCharging: {ex.Message}");
+            return false;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout RequestCharging - API non risponde");
+            return false;
+        }
+    }
+
+    public async Task<bool> Register(LoginDto dto)
+    {
+        try
+        {
+            var res = await _http.PostAsJsonAsync("api/auth/register", dto);
+            if (!res.IsSuccessStatusCode) return false;
+
+            var token = await res.Content.ReadAsStringAsync();
+            _auth.SetToken(token.Replace("\"", ""));
+            return true;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore Register: {ex.Message}");
+            return false;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout Register - API non risponde");
+            return false;
+        }
     }
 }

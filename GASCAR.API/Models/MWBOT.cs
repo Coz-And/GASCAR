@@ -1,3 +1,5 @@
+namespace GASCAR.API.Models;
+
 public class MWBot
 {
     public int Id { get; set; }

@@ -1,3 +1,5 @@
+namespace GASCAR.API.Models;
+
 public class Tariff
 {
     public int Id { get; set; }

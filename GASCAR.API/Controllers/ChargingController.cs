@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization; 
 using GASCAR.API.Data;
 using GASCAR.API.Service;
+using GASCAR.API.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace GASCAR.API.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class ChargingController : ControllerBase

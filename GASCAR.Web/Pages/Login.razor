@@ -5,38 +5,74 @@
 @inject ApiService Api
 @inject NavigationManager Nav
 
-<h3>🔐 Login</h3>
+<div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2>🔐 Login</h2>
+    
+    @if (error != null)
+    {
+        <div style="color: red; margin-bottom: 10px; padding: 10px; background-color: #ffe6e6; border-radius: 4px;">
+            @error
+        </div>
+    }
 
-@if (error != null)
-{
-    <p style="color:red">@error</p>
-}
+    <EditForm Model="model" OnValidSubmit="Submit">
+        <div style="margin-bottom: 15px;">
+            <label for="email">Email:</label>
+            <InputText id="email" @bind-Value="model.Email" class="form-control" placeholder="tuaemail@example.com" style="width: 100%; padding: 8px; margin-top: 5px;" />
+        </div>
 
-<EditForm Model="model" OnValidSubmit="Submit">
-    <InputText @bind-Value="model.Email" placeholder="Email" />
-    <br /><br />
-    <InputText @bind-Value="model.Password" type="password" placeholder="Password" />
-    <br /><br />
-    <button type="submit">Login</button>
-</EditForm>
+        <div style="margin-bottom: 15px;">
+            <label for="password">Password:</label>
+            <InputText id="password" @bind-Value="model.Password" type="password" class="form-control" placeholder="Password" style="width: 100%; padding: 8px; margin-top: 5px;" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" disabled="@isLoading">
+            @if (isLoading)
+            {
+                <span>⏳ Accesso in corso...</span>
+            }
+            else
+            {
+                <span>Accedi</span>
+            }
+        </button>
+    </EditForm>
+
+    <div style="text-align: center; margin-top: 15px;">
+        <p>Non hai un account? <a href="/register" style="color: #007bff; text-decoration: none;">Registrati qui</a></p>
+    </div>
+</div>
 
 @code {
     LoginDto model = new();
     string? error;
+    bool isLoading = false;
 
     async Task Submit()
     {
         error = null;
+        isLoading = true;
 
-        var ok = await Api.Login(model);
-
-        if (ok)
+        try
         {
-            Nav.NavigateTo("/");
+            var ok = await Api.Login(model);
+
+            if (ok)
+            {
+                Nav.NavigateTo("/");
+            }
+            else
+            {
+                error = "Email o password errati";
+            }
         }
-        else
+        catch (Exception ex)
         {
-            error = "Email o password errati";
+            error = $"Errore: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
 }

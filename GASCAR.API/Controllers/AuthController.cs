@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using GASCAR.API.Service;     // 👈 QUESTO È IL FIX CHIAVE
-using GASCAR.API.Models;      // 👈 per RegisterDto / LoginDto
+using GASCAR.API.Service;
+using GASCAR.API.Models;
+using GASCAR.API.Models.Auth;
 
 namespace GASCAR.API.Controllers;
 

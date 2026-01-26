@@ -8,12 +8,15 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// 🔌 API URL — DEVE ESSERE 5184
-builder.Services.AddScoped(sp => new HttpClient
+// 🔌 Configura HttpClient con timeout
+var httpClientHandler = new HttpClientHandler();
+var httpClient = new HttpClient(httpClientHandler)
 {
-    BaseAddress = new Uri("http://localhost:5184/")
-});
+    BaseAddress = new Uri("http://localhost:5184/"),
+    Timeout = TimeSpan.FromSeconds(30)
+};
 
+builder.Services.AddScoped(sp => httpClient);
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddScoped<AuthStateService>();
 

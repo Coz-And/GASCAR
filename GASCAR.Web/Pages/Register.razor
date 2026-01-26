@@ -1,0 +1,122 @@
+@page "/register"
+@using GASCAR.Web.Models
+@using GASCAR.Web.Services
+
+@inject ApiService Api
+@inject NavigationManager Nav
+
+<div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2>📝 Registrazione</h2>
+    
+    @if (error != null)
+    {
+        <div style="color: red; margin-bottom: 10px; padding: 10px; background-color: #ffe6e6; border-radius: 4px;">
+            @error
+        </div>
+    }
+
+    @if (success)
+    {
+        <div style="color: green; margin-bottom: 10px; padding: 10px; background-color: #e6ffe6; border-radius: 4px;">
+            ✅ Registrazione completata! Accedi con le tue credenziali.
+        </div>
+    }
+
+    <EditForm Model="model" OnValidSubmit="Submit">
+        <div style="margin-bottom: 15px;">
+            <label for="email">Email:</label>
+            <InputText id="email" @bind-Value="model.Email" class="form-control" placeholder="tuaemail@example.com" style="width: 100%; padding: 8px; margin-top: 5px;" />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="password">Password:</label>
+            <InputText id="password" @bind-Value="model.Password" type="password" class="form-control" placeholder="Password sicura" style="width: 100%; padding: 8px; margin-top: 5px;" />
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="confirmPassword">Conferma Password:</label>
+            <input id="confirmPassword" type="password" class="form-control" @bind="confirmPassword" placeholder="Ripeti la password" style="width: 100%; padding: 8px; margin-top: 5px;" />
+        </div>
+
+        @if (model.Password != confirmPassword)
+        {
+            <div style="color: orange; margin-bottom: 10px; font-size: 0.9em;">
+                ⚠️ Le password non coincidono
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" disabled="@isLoading || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password) || model.Password != confirmPassword">
+            @if (isLoading)
+            {
+                <span>⏳ Registrazione in corso...</span>
+            }
+            else
+            {
+                <span>Registrati</span>
+            }
+        </button>
+    </EditForm>
+
+    <div style="text-align: center; margin-top: 15px;">
+        <p>Hai già un account? <a href="/login" style="color: #007bff; text-decoration: none;">Accedi qui</a></p>
+    </div>
+</div>
+
+@code {
+    LoginDto model = new();
+    string? error;
+    string confirmPassword = "";
+    bool isLoading = false;
+    bool success = false;
+
+    async Task Submit()
+    {
+        if (model.Password != confirmPassword)
+        {
+            error = "Le password non coincidono";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+        {
+            error = "Email e password sono obbligatori";
+            return;
+        }
+
+        if (model.Password.Length < 6)
+        {
+            error = "La password deve avere almeno 6 caratteri";
+            return;
+        }
+
+        error = null;
+        success = false;
+        isLoading = true;
+
+        try
+        {
+            var ok = await Api.Register(model);
+
+            if (ok)
+            {
+                success = true;
+                model = new();
+                confirmPassword = "";
+                await Task.Delay(2000);
+                Nav.NavigateTo("/");
+            }
+            else
+            {
+                error = "Questo email è già registrato";
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Errore: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

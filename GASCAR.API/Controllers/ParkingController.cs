@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using GASCAR.API.Data;
 using Microsoft.EntityFrameworkCore;
 
+namespace GASCAR.API.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class ParkingController : ControllerBase

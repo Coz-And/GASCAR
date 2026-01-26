@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using GASCAR.API.Data;
 using Microsoft.EntityFrameworkCore;
+using GASCAR.API.Models;
+
+namespace GASCAR.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

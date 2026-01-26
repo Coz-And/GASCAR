@@ -1,3 +1,5 @@
+namespace GASCAR.API.Models.Auth;
+
 public class RegisterDto
 {
     public required string Email { get; set; }
