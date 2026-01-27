@@ -86,7 +86,7 @@ else
     private List<AdminTransactionDto>? transactions;
     private string userIdFilter = "";
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (AuthState.IsAuthenticated)
         {

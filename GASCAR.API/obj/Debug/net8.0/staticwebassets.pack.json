@@ -1,11 +1,11 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\_framework",
+      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\_framework",
       "PackagePath": "staticwebassets"
     },
     {
-      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\index.html",
+      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {

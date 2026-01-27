@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Pzx8/IVQ5lBsi2OUiOI4+cGNv9yJZsIdG5sVM4WabNE=",
+  "Hash": "vwsHkZoo1vatHIxTBI6WGy9r8VnynbvhIELIW/EHlOY=",
   "Source": "GASCAR.API",
   "BasePath": "_content/GASCAR.API",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "GASCAR.API\\wwwroot",
       "Source": "GASCAR.API",
-      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\",
       "BasePath": "_content/GASCAR.API",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\_framework",
+      "Identity": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\_framework",
       "SourceId": "GASCAR.API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\",
       "BasePath": "_content/GASCAR.API",
       "RelativePath": "_framework",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\_framework"
     },
     {
-      "Identity": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\index.html",
+      "Identity": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\index.html",
       "SourceId": "GASCAR.API",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\wwwroot\\",
       "BasePath": "_content/GASCAR.API",
       "RelativePath": "index.html",
       "AssetKind": "All",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\GASCAR.API.csproj": {}
+    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\GASCAR.API.csproj": {
+    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
+        "projectUniqueName": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj",
         "projectName": "GASCAR.API",
-        "projectPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
+        "projectPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj",
         "packagesPath": "C:\\Users\\andrea.cozzi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\obj\\",
+        "outputPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andrea.cozzi\\AppData\\Roaming\\NuGet\\NuGet.Config"
