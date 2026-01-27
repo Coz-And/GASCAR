@@ -13,91 +13,91 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = GASCAR.Web
 build_property.RootNamespace = GASCAR.Web
-build_property.ProjectDir = C:\Users\andrea.cozzi\Documents\GitHub\Gascar\GASCAR\gascar.web\
+build_property.ProjectDir = C:\Users\andrea.cozzi\Documents\GitHub\Gascar\GASCAR\GASCAR.Web\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\andrea.cozzi\Documents\GitHub\Gascar\GASCAR\gascar.web
+build_property.MSBuildProjectDirectory = C:\Users\andrea.cozzi\Documents\GitHub\Gascar\GASCAR\GASCAR.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/App.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminDashboard.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/AdminDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5EYXNoYm9hcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminEditStations.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/AdminEditStations.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5FZGl0U3RhdGlvbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminStations.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/AdminStations.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5TdGF0aW9ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminTransactions.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/AdminTransactions.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5UcmFuc2FjdGlvbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Cars.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Cars.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2Fycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Charging.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Charging.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2hhcmdpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/ForgotPassword.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/ForgotPassword.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9yZ290UGFzc3dvcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Index.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Login.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Map.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Map.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Notifications.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Notifications.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Payment.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Payment.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF5bWVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Register.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/Transactions.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/Transactions.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJhbnNhY3Rpb25zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/UserDashboard.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Pages/UserDashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlckRhc2hib2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Shared/MainLayout.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/_Imports.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Layout/MainLayout.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-115cyf3td5
 
-[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Layout/NavMenu.razor]
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/GASCAR.Web/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-s16qachgeb

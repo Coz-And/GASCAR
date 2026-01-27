@@ -1,12 +1,21 @@
 @page "/register"
 @using GASCAR.Web.Models
 @using GASCAR.Web.Services
+@using Microsoft.AspNetCore.Components.Forms
 
 @inject ApiService Api
 @inject NavigationManager Nav
+@inject IJSRuntime JSRuntime
 
 <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
     <h2>📝 Registrazione</h2>
+    
+    <!-- PULSANTE DI TEST in cima -->
+    <div style="margin-bottom: 20px; padding: 10px; background-color: yellow; border: 3px solid black;">
+        <button type="button" style="width: 100%; padding: 20px; background-color: red; color: white; border: 5px solid black; border-radius: 10px; cursor: pointer; font-size: 24px; font-weight: bold;" @onclick="Submit" onclick="alert('HTML onclick works!')">
+            🚨 REGISTRATI (TEST) 🚨
+        </button>
+    </div>
     
     @if (error != null)
     {
@@ -45,14 +54,14 @@
             </div>
         }
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" disabled="@isLoading || string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password) || model.Password != confirmPassword">
+        <button type="button" class="btn btn-primary" style="width: 100%; padding: 15px; background-color: red; color: white; border: 2px solid black; border-radius: 4px; cursor: pointer; font-size: 18px; font-weight: bold;" @onclick="Submit" onclick="alert('HTML onclick works!')">
             @if (isLoading)
             {
                 <span>⏳ Registrazione in corso...</span>
             }
             else
             {
-                <span>Registrati</span>
+                <span>REGISTRATI (TEST)</span>
             }
         </button>
     </EditForm>
@@ -71,52 +80,67 @@
 
     async Task Submit()
     {
+        // Debug alert - mostra che il metodo viene chiamato
+        await Task.Delay(100);
+        await JSRuntime.InvokeVoidAsync("alert", "Submit method called!");
+        
+        Console.WriteLine("🔥 Submit method called!");
+        
         if (model.Password != confirmPassword)
         {
             error = "Le password non coincidono";
+            Console.WriteLine("❌ Password mismatch");
             return;
         }
 
         if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
         {
             error = "Email e password sono obbligatori";
+            Console.WriteLine("❌ Missing email or password");
             return;
         }
 
         if (model.Password.Length < 6)
         {
             error = "La password deve avere almeno 6 caratteri";
+            Console.WriteLine("❌ Password too short");
             return;
         }
 
         error = null;
         success = false;
         isLoading = true;
+        Console.WriteLine("🚀 Starting registration...");
 
         try
         {
             var ok = await Api.Register(model);
+            Console.WriteLine($"📡 API response: {ok}");
 
             if (ok)
             {
                 success = true;
                 model = new();
                 confirmPassword = "";
+                Console.WriteLine("✅ Registration successful, redirecting to login...");
                 await Task.Delay(2000);
                 Nav.NavigateTo("/login");
             }
             else
             {
                 error = "Questo email è già registrato";
+                Console.WriteLine("❌ Email already exists");
             }
         }
         catch (Exception ex)
         {
             error = $"Errore: {ex.Message}";
+            Console.WriteLine($"💥 Exception: {ex.Message}");
         }
         finally
         {
             isLoading = false;
+            Console.WriteLine("🏁 Submit method finished");
         }
     }
 }
