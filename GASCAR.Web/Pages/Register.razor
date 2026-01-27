@@ -18,7 +18,7 @@
     @if (success)
     {
         <div style="color: green; margin-bottom: 10px; padding: 10px; background-color: #e6ffe6; border-radius: 4px;">
-            ✅ Registrazione completata! Accedi con le tue credenziali.
+            ✅ Registrazione completata! Ora puoi accedere con le tue credenziali.
         </div>
     }
 
@@ -63,7 +63,7 @@
 </div>
 
 @code {
-    LoginDto model = new();
+    RegisterDto model = new();
     string? error;
     string confirmPassword = "";
     bool isLoading = false;
@@ -103,7 +103,7 @@
                 model = new();
                 confirmPassword = "";
                 await Task.Delay(2000);
-                Nav.NavigateTo("/");
+                Nav.NavigateTo("/login");
             }
             else
             {

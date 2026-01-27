@@ -1,0 +1,84 @@
+@page "/dashboard"
+@using GASCAR.Web.Services
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Dashboard Utente</h2>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">💳</span>
+                        </div>
+                        <h5 class="card-title">Transazioni</h5>
+                        <p class="card-text">Visualizza lo storico delle tue transazioni</p>
+                        <a href="/transactions" class="btn btn-primary">Vedi Transazioni</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">🗺️</span>
+                        </div>
+                        <h5 class="card-title">Mappa Colonnine</h5>
+                        <p class="card-text">Trova le colonnine di ricarica vicino a te</p>
+                        <a href="/map" class="btn btn-success">Vedi Mappa</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">⚡</span>
+                        </div>
+                        <h5 class="card-title">Attiva Ricarica</h5>
+                        <p class="card-text">Avvia una nuova sessione di ricarica</p>
+                        <a href="/charging" class="btn btn-warning">Avvia Ricarica</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">🔔</span>
+                        </div>
+                        <h5 class="card-title">Notifiche</h5>
+                        <p class="card-text">Controlla i tuoi avvisi e notifiche</p>
+                        <a href="/notifications" class="btn btn-info">Vedi Notifiche</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button @onclick="Logout" class="btn btn-danger">Logout</button>
+        </div>
+    </div>
+}
+
+@code {
+    private void Logout()
+    {
+        AuthState.Logout();
+        Navigation.NavigateTo("/");
+    }
+}

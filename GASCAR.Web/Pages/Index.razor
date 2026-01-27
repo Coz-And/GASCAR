@@ -2,49 +2,78 @@
 @using GASCAR.Web.Services
 @inject AuthStateService AuthState
 
-<div style="text-align: center; padding: 40px;">
-    <h1>🚗 Benvenuto su GASCAR</h1>
-    <p style="font-size: 1.1em; color: #555;">Piattaforma smart per la ricarica di auto elettriche.</p>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Benvenuto su GASCAR</h1>
+        <p class="lead">Piattaforma smart per la ricarica di auto elettriche</p>
+    </div>
 
-    <div style="margin: 30px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
-        <h3>✨ Funzionalità disponibili:</h3>
-        <ul style="list-style: none; padding: 0;">
-            <li style="padding: 8px;">✅ Login sicuro con JWT</li>
-            <li style="padding: 8px;">⚡ Prenota ricarica</li>
-            <li style="padding: 8px;">🅿️ Gestione parcheggio</li>
-            <li style="padding: 8px;">💳 Storico pagamenti</li>
-        </ul>
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem;">🔋</span>
+                    </div>
+                    <h5 class="card-title">Ricarica Intelligente</h5>
+                    <p class="card-text">Prenota e gestisci la ricarica delle tue auto elettriche in modo semplice e veloce.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem;">🗺️</span>
+                    </div>
+                    <h5 class="card-title">Mappa Colonnine</h5>
+                    <p class="card-text">Visualizza la posizione di tutte le colonnine di ricarica disponibili nella tua zona.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem;">⚡</span>
+                    </div>
+                    <h5 class="card-title">Ricarica Veloce</h5>
+                    <p class="card-text">Ricarica rapida per chi ha fretta. Prezzo: €0.50/kWh</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span style="font-size: 3rem;">🔌</span>
+                    </div>
+                    <h5 class="card-title">Ricarica Normale</h5>
+                    <p class="card-text">Ricarica standard conveniente. Prezzo: €0.30/kWh</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     @if (!AuthState.IsAuthenticated)
     {
-        <div style="margin: 30px 0;">
-            <h4>Accedi al tuo account o registrati</h4>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="/login" style="padding: 12px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;">
-                    🔐 Accedi
-                </a>
-                <a href="/register" style="padding: 12px 30px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-size: 1em; cursor: pointer; transition: background-color 0.3s;">
-                    📝 Registrati
-                </a>
+        <div class="text-center mt-5">
+            <h4>Inizia ora</h4>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/login" class="btn btn-primary btn-lg">🔐 Accedi</a>
+                <a href="/register" class="btn btn-success btn-lg">📝 Registrati</a>
             </div>
         </div>
     }
     else
     {
-        <div style="margin: 30px 0; padding: 20px; background-color: #e7f3ff; border-radius: 8px;">
-            <h4>✅ Sei autenticato!</h4>
-            <p>Esplora le funzionalità della piattaforma.</p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
-                <a href="/cars" style="padding: 12px 30px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 1em;">
-                    🚗 Le mie auto
-                </a>
-                <a href="/charging" style="padding: 12px 30px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 5px; font-size: 1em;">
-                    ⚡ Ricarica
-                </a>
-                <a href="/payment" style="padding: 12px 30px; background-color: #17a2b8; color: white; text-decoration: none; border-radius: 5px; font-size: 1em;">
-                    💳 Pagamenti
-                </a>
+        <div class="text-center mt-5">
+            <h4>Benvenuto! Esplora le funzionalità</h4>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/dashboard" class="btn btn-primary btn-lg">📊 Dashboard</a>
             </div>
         </div>
     }

@@ -1,0 +1,71 @@
+@page "/admin"
+@using GASCAR.Web.Services
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Dashboard Admin</h2>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">🔌</span>
+                        </div>
+                        <h5 class="card-title">Controllo Colonnine</h5>
+                        <p class="card-text">Gestisci lo stato delle colonnine di ricarica</p>
+                        <a href="/admin/stations" class="btn btn-primary">Gestisci Colonnine</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">⚙️</span>
+                        </div>
+                        <h5 class="card-title">Modifica Colonnine</h5>
+                        <p class="card-text">Aggiungi, modifica o rimuovi colonnine</p>
+                        <a href="/admin/edit-stations" class="btn btn-success">Modifica Colonnine</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span style="font-size: 3rem;">📊</span>
+                        </div>
+                        <h5 class="card-title">Transazioni Utenti</h5>
+                        <p class="card-text">Visualizza le transazioni di tutti gli utenti</p>
+                        <a href="/admin/transactions" class="btn btn-warning">Vedi Transazioni</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button @onclick="Logout" class="btn btn-danger">Logout</button>
+        </div>
+    </div>
+}
+
+@code {
+    private void Logout()
+    {
+        AuthState.Logout();
+        Navigation.NavigateTo("/");
+    }
+}

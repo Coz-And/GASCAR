@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("GASCAR.Web")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("GascarWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+de9331ee4b21cf542b4758f11c1bdb2e62e82c33")]
-[assembly: System.Reflection.AssemblyProductAttribute("GASCAR.Web")]
-[assembly: System.Reflection.AssemblyTitleAttribute("GASCAR.Web")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab9e4f8f0be6b34f66daeacd5abadf13a4d99d50")]
+[assembly: System.Reflection.AssemblyProductAttribute("GascarWeb")]
+[assembly: System.Reflection.AssemblyTitleAttribute("GascarWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generato dalla classe WriteCodeFragment di MSBuild.

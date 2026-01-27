@@ -1,16 +1,38 @@
 ﻿@namespace GASCAR.Web
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.JSInterop
 @using GASCAR.Web.Shared
 
-<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-    </Found>
+<ErrorBoundary>
+    <ChildContent>
+        <Router AppAssembly="@typeof(App).Assembly">
+            <Found Context="routeData">
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            </Found>
 
-    <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>Pagina non trovata</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+            <NotFound>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p>Pagina non trovata</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </ChildContent>
+    <ErrorContent>
+        <div style="text-align: center; padding: 50px;">
+            <h1>Si è verificato un errore imprevisto</h1>
+            <p>Ricarica la pagina o contatta il supporto.</p>
+            <button @onclick="ReloadPage" class="btn btn-primary">Ricarica</button>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
+
+@code {
+    [Inject] IJSRuntime JS { get; set; } = default!;
+
+    private void ReloadPage()
+    {
+        // Ricarica la pagina
+        JS.InvokeVoidAsync("location.reload");
+    }
+}

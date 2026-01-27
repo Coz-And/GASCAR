@@ -107,16 +107,12 @@ public class ApiService
         }
     }
 
-    public async Task<bool> Register(LoginDto dto)
+    public async Task<bool> Register(RegisterDto dto)
     {
         try
         {
             var res = await _http.PostAsJsonAsync("api/auth/register", dto);
-            if (!res.IsSuccessStatusCode) return false;
-
-            var token = await res.Content.ReadAsStringAsync();
-            _auth.SetToken(token.Replace("\"", ""));
-            return true;
+            return res.IsSuccessStatusCode;
         }
         catch (HttpRequestException ex)
         {
@@ -146,6 +142,26 @@ public class ApiService
         {
             Console.WriteLine("⏱️ Timeout ForgotPassword - API non risponde");
             return false;
+        }
+    }
+
+    public async Task<List<TransactionDto>> GetUserTransactions()
+    {
+        try
+        {
+            AttachToken();
+            var response = await _http.GetFromJsonAsync<List<TransactionDto>>("api/transactions/user");
+            return response ?? new List<TransactionDto>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore GetUserTransactions: {ex.Message}");
+            return new List<TransactionDto>();
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout GetUserTransactions - API non risponde");
+            return new List<TransactionDto>();
         }
     }
 }

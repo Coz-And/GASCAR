@@ -1,0 +1,109 @@
+@page "/admin/transactions"
+@using GASCAR.Web.Services
+@using GASCAR.Web.Models
+@inject AuthStateService AuthState
+@inject ApiService Api
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Transazioni di Tutti gli Utenti</h2>
+
+        <div class="mb-3">
+            <label class="form-label">Cerca per ID Utente</label>
+            <input type="text" class="form-control" @bind="userIdFilter" placeholder="Inserisci ID utente..." />
+        </div>
+
+        @if (transactions == null)
+        {
+            <div class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Caricamento transazioni...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            var filteredTransactions = string.IsNullOrEmpty(userIdFilter)
+                ? transactions
+                : transactions.Where(t => t.UserId.Contains(userIdFilter, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            @if (!filteredTransactions.Any())
+            {
+                <div class="alert alert-info">
+                    Nessuna transazione trovata.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID Utente</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Importo</th>
+                                <th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in filteredTransactions)
+                            {
+                                <tr>
+                                    <td>@transaction.UserId</td>
+                                    <td>@transaction.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@transaction.Type</td>
+                                    <td>€@transaction.Amount.ToString("F2")</td>
+                                    <td>
+                                        <span class="badge bg-@(transaction.Status == "Completato" ? "success" : "warning")">
+                                            @transaction.Status
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        }
+
+        <div class="mt-4">
+            <a href="/admin" class="btn btn-secondary">Torna alla Dashboard Admin</a>
+        </div>
+    </div>
+}
+
+@code {
+    private List<AdminTransactionDto>? transactions;
+    private string userIdFilter = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState.IsAuthenticated)
+        {
+            try
+            {
+                // Mock data for demonstration
+                transactions = new List<AdminTransactionDto>
+                {
+                    new AdminTransactionDto { UserId = "user123", Date = DateTime.Now.AddHours(-2), Type = "Ricarica", Amount = 15.50m, Status = "Completato" },
+                    new AdminTransactionDto { UserId = "user456", Date = DateTime.Now.AddDays(-1), Type = "Ricarica", Amount = 22.00m, Status = "Completato" },
+                    new AdminTransactionDto { UserId = "user123", Date = DateTime.Now.AddDays(-3), Type = "Pagamento", Amount = 10.00m, Status = "In Attesa" }
+                };
+            }
+            catch
+            {
+                transactions = new List<AdminTransactionDto>();
+            }
+        }
+    }
+}

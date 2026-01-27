@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\_framework",
+      "PackagePath": "staticwebassets"
+    },
+    {
+      "Id": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\GASCAR.API\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.GASCAR.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.GASCAR.API.props",
+      "PackagePath": "build\\GASCAR.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.GASCAR.API.props",
+      "PackagePath": "buildMultiTargeting\\GASCAR.API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.GASCAR.API.props",
+      "PackagePath": "buildTransitive\\GASCAR.API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

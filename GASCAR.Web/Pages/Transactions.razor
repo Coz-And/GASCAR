@@ -1,0 +1,89 @@
+@page "/transactions"
+@using GASCAR.Web.Services
+@using GASCAR.Web.Models
+@inject AuthStateService AuthState
+@inject ApiService Api
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Le mie Transazioni</h2>
+
+        @if (transactions == null)
+        {
+            <div class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Caricamento...</span>
+                </div>
+            </div>
+        }
+        else if (!transactions.Any())
+        {
+            <div class="alert alert-info">
+                Nessuna transazione trovata.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Importo</th>
+                            <th>Stato</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in transactions)
+                        {
+                            <tr>
+                                <td>@transaction.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@transaction.Type</td>
+                                <td>€@transaction.Amount.ToString("F2")</td>
+                                <td>
+                                    <span class="badge bg-@(transaction.Status == "Completato" ? "success" : "warning")">
+                                        @transaction.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div class="mt-4">
+            <a href="/dashboard" class="btn btn-secondary">Torna alla Dashboard</a>
+        </div>
+    </div>
+}
+
+@code {
+    private List<TransactionDto>? transactions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState.IsAuthenticated)
+        {
+            try
+            {
+                // Assume Api has a method to get user transactions
+                transactions = await Api.GetUserTransactions();
+            }
+            catch
+            {
+                transactions = new List<TransactionDto>();
+            }
+        }
+    }
+}

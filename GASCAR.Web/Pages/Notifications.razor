@@ -1,0 +1,90 @@
+@page "/notifications"
+@using GASCAR.Web.Services
+@using GASCAR.Web.Models
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Notifiche</h2>
+
+        @if (notifications == null)
+        {
+            <div class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Caricamento notifiche...</span>
+                </div>
+            </div>
+        }
+        else if (!notifications.Any())
+        {
+            <div class="alert alert-info">
+                Nessuna notifica disponibile.
+            </div>
+        }
+        else
+        {
+            <div class="list-group">
+                @foreach (var notification in notifications)
+                {
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@notification.Title</h5>
+                            <small>@notification.Date.ToString("dd/MM/yyyy HH:mm")</small>
+                        </div>
+                        <p class="mb-1">@notification.Message</p>
+                        <small class="text-muted">@notification.Type</small>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="mt-4">
+            <a href="/dashboard" class="btn btn-secondary">Torna alla Dashboard</a>
+        </div>
+    </div>
+}
+
+@code {
+    private List<NotificationDto>? notifications;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState.IsAuthenticated)
+        {
+            try
+            {
+                // Mock data for demonstration
+                notifications = new List<NotificationDto>
+                {
+                    new NotificationDto
+                    {
+                        Title = "Ricarica completata",
+                        Message = "La ricarica della tua auto è stata completata con successo.",
+                        Type = "Ricarica",
+                        Date = DateTime.Now.AddHours(-2)
+                    },
+                    new NotificationDto
+                    {
+                        Title = "Promozione attiva",
+                        Message = "Sconto del 10% sulle ricariche veloci fino a fine mese.",
+                        Type = "Promozione",
+                        Date = DateTime.Now.AddDays(-1)
+                    }
+                };
+            }
+            catch
+            {
+                notifications = new List<NotificationDto>();
+            }
+        }
+    }
+}

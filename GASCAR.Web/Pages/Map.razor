@@ -1,0 +1,89 @@
+@page "/map"
+@using GASCAR.Web.Services
+@using GASCAR.Web.Models
+@inject AuthStateService AuthState
+@inject ApiService Api
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Mappa Colonnine di Ricarica</h2>
+
+        <div class="alert alert-info">
+            <strong>Nota:</strong> Questa è una rappresentazione semplificata della mappa. In un'implementazione reale, utilizzare un servizio di mappe come Google Maps o OpenStreetMap.
+        </div>
+
+        <div style="height: 500px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.375rem; position: relative;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                <span style="font-size: 4rem;">🗺️</span>
+                <h4>Mappa Interattiva</h4>
+                <p>Colonnine disponibili nella tua zona</p>
+            </div>
+
+            @if (stations != null && stations.Any())
+            {
+                <div style="position: absolute; bottom: 10px; left: 10px; background: white; padding: 10px; border-radius: 5px;">
+                    <h6>Colonnine vicine:</h6>
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var station in stations.Take(3))
+                        {
+                            <li>🔌 @station.Name - @station.Status</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
+        @if (stations == null)
+        {
+            <div class="text-center mt-3">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Caricamento colonnine...</span>
+                </div>
+            </div>
+        }
+        else if (!stations.Any())
+        {
+            <div class="alert alert-warning mt-3">
+                Nessuna colonnina trovata nella tua zona.
+            </div>
+        }
+
+        <div class="mt-4">
+            <a href="/dashboard" class="btn btn-secondary">Torna alla Dashboard</a>
+        </div>
+    </div>
+}
+
+@code {
+    private List<ChargingStationDto>? stations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState.IsAuthenticated)
+        {
+            try
+            {
+                // Mock data for demonstration
+                stations = new List<ChargingStationDto>
+                {
+                    new ChargingStationDto { Name = "Stazione Centro", Status = "Disponibile", Location = "Via Roma 1" },
+                    new ChargingStationDto { Name = "Parcheggio Nord", Status = "Occupata", Location = "Via Milano 10" },
+                    new ChargingStationDto { Name = "Stazione Sud", Status = "Disponibile", Location = "Via Napoli 5" }
+                };
+            }
+            catch
+            {
+                stations = new List<ChargingStationDto>();
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+@page "/admin/stations"
+@using GASCAR.Web.Services
+@using GASCAR.Web.Models
+@inject AuthStateService AuthState
+@inject ApiService Api
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <h2 class="mb-4">Controllo Colonnine</h2>
+
+        @if (stations == null)
+        {
+            <div class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Caricamento colonnine...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Posizione</th>
+                            <th>Stato</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var station in stations)
+                        {
+                            <tr>
+                                <td>@station.Name</td>
+                                <td>@station.Location</td>
+                                <td>
+                                    <span class="badge bg-@(station.Status == "Disponibile" ? "success" : station.Status == "Occupata" ? "warning" : "danger")">
+                                        @station.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (station.Status == "Disponibile")
+                                    {
+                                        <button class="btn btn-sm btn-warning" @onclick='() => ChangeStatus(station, "Manutenzione")'>In Manutenzione</button>
+                                    }
+                                    else if (station.Status == "Manutenzione")
+                                    {
+                                        <button class="btn btn-sm btn-success" @onclick='() => ChangeStatus(station, "Disponibile")'>Rendi Disponibile</button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div class="mt-4">
+            <a href="/admin" class="btn btn-secondary">Torna alla Dashboard Admin</a>
+        </div>
+    </div>
+}
+
+@code {
+    private List<ChargingStationDto>? stations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (AuthState.IsAuthenticated)
+        {
+            try
+            {
+                // Mock data for demonstration
+                stations = new List<ChargingStationDto>
+                {
+                    new ChargingStationDto { Name = "Stazione Centro", Status = "Disponibile", Location = "Via Roma 1" },
+                    new ChargingStationDto { Name = "Parcheggio Nord", Status = "Occupata", Location = "Via Milano 10" },
+                    new ChargingStationDto { Name = "Stazione Sud", Status = "Manutenzione", Location = "Via Napoli 5" }
+                };
+            }
+            catch
+            {
+                stations = new List<ChargingStationDto>();
+            }
+        }
+    }
+
+    private void ChangeStatus(ChargingStationDto station, string newStatus)
+    {
+        station.Status = newStatus;
+        // In a real app, call API to update
+    }
+}
