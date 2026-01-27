@@ -8,13 +8,26 @@
 
 <h3>⚡ Prenotazione ricarica</h3>
 
+<div style="margin-bottom: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+    <h4>ℹ️ Come funziona la ricarica</h4>
+    <p>Questa applicazione ti permette di prenotare e gestire la ricarica delle tue auto elettriche in modo semplice e sicuro. Ecco cosa fa l'app per te:</p>
+    <ul>
+        <li><strong>Selezione automatica:</strong> Sceglie la stazione di ricarica più vicina o disponibile basata sulla tua posizione e auto selezionata.</li>
+        <li><strong>Monitoraggio in tempo reale:</strong> Tiene traccia del livello di batteria durante la ricarica e ti notifica quando è completa.</li>
+        <li><strong>Gestione tariffe:</strong> Applica automaticamente le tariffe di ricarica appropriate, calcolando il costo in base al tempo e all'energia consumata.</li>
+        <li><strong>Pagamento integrato:</strong> Gestisce i pagamenti in modo sicuro, deducendo i costi dal tuo account una volta completata la ricarica.</li>
+        <li><strong>Sicurezza:</strong> Assicura che la ricarica avvenga solo per le auto autorizzate e in aree designate.</li>
+    </ul>
+    <p>Seleziona la tua auto e avvia la ricarica per iniziare il processo automatizzato.</p>
+</div>
+
 @if (!requested)
 {
-    <button @onclick="Request">Avvia Ricarica</button>
+    <button @onclick="Request" style="padding: 12px 24px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 1em; cursor: pointer;">Avvia Ricarica</button>
 }
 else
 {
-    <p>✅ Ricarica prenotata!</p>
+    <p style="color: green; font-weight: bold;">✅ Ricarica prenotata! Il sistema sta gestendo il processo automaticamente.</p>
 }
 
 @code {

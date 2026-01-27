@@ -129,4 +129,23 @@ public class ApiService
             return false;
         }
     }
+
+    public async Task<bool> ForgotPassword(string email)
+    {
+        try
+        {
+            var res = await _http.PostAsJsonAsync("api/auth/forgot-password", new { Email = email });
+            return res.IsSuccessStatusCode;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"❌ Errore ForgotPassword: {ex.Message}");
+            return false;
+        }
+        catch (TaskCanceledException)
+        {
+            Console.WriteLine("⏱️ Timeout ForgotPassword - API non risponde");
+            return false;
+        }
+    }
 }

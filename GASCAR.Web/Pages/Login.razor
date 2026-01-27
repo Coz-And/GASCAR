@@ -6,7 +6,7 @@
 @inject NavigationManager Nav
 
 <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-    <h2>🔐 Login</h2>
+    <h2>Login</h2>
     
     @if (error != null)
     {
@@ -39,6 +39,7 @@
     </EditForm>
 
     <div style="text-align: center; margin-top: 15px;">
+        <p><a href="/forgot-password" style="color: #007bff; text-decoration: none;">Hai dimenticato la password?</a></p>
         <p>Non hai un account? <a href="/register" style="color: #007bff; text-decoration: none;">Registrati qui</a></p>
     </div>
 </div>

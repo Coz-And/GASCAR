@@ -35,4 +35,13 @@ public class AuthController : ControllerBase
 
         return Ok(new { token });
     }
+
+    [HttpPost("forgot-password")]
+    public IActionResult ForgotPassword([FromBody] ForgotPasswordDto dto)
+    {
+        // Placeholder: In a real app, send email with reset link
+        // For now, just log and return success
+        Console.WriteLine($"Password reset requested for: {dto.Email}");
+        return Ok(new { message = "If the email exists, reset instructions have been sent." });
+    }
 }
