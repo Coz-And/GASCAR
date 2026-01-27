@@ -1,4 +1,5 @@
 using GASCAR.API.Models;
+using BCrypt.Net;
 
 namespace GASCAR.API.Data;
 
@@ -9,6 +10,19 @@ public static class DbSeeder
         // Evita di seedare se i dati esistono già
         if (db.MWBots.Any() || db.Tariffs.Any() || db.ParkingSpots.Any())
             return;
+
+        // Seed Admin User
+        if (!db.Users.Any(u => u.Email == "admin@gascar.com"))
+        {
+            var adminUser = new User
+            {
+                Email = "admin@gascar.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),
+                Role = "Admin",
+                UserType = "Administrator"
+            };
+            db.Users.Add(adminUser);
+        }
 
         // Seed MWBot (Mobile Waiter Bot)
         var mwbot = new MWBot

@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5FZGl0U3RhdGlvbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminHub.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5IdWIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/andrea.cozzi/Documents/GitHub/Gascar/GASCAR/gascar.web/Pages/AdminStations.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5TdGF0aW9ucy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
