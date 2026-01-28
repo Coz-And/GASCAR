@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "GascarWeb",
   "resources": {
-    "hash": "sha256-QcBxcgaXjy4RcfLF4N5VmXBO4d4K7SCdZRLlsD2xIVI=",
+    "hash": "sha256-16hwX0qy2wRN09Qv6zo4S7czyv7pJ9S0tzCu92aZBoI=",
     "jsModuleNative": {
       "dotnet.native.8.0.23.42oclzqmj1.js": "sha256-NljIbpK/1KCj0+knpX8U77Rbl5kTtfFIuFjK7AuczEw="
     },
@@ -37,8 +37,13 @@
       "Microsoft.Extensions.Logging.Abstractions.wasm": "sha256-glWux6/5FFNJxVrbRPQ/PhLriEkSd3TllLfjmvZbpKw=",
       "Microsoft.Extensions.Options.wasm": "sha256-5/m+yVFGRuY+N4jQnD+QETKH0AfhAsnVze5dJ5ogIVM=",
       "Microsoft.Extensions.Primitives.wasm": "sha256-pVrYOTfjb2ITls3LKIByW1t8jwOAWFhmkIVDewtJ1GE=",
+      "Microsoft.IdentityModel.Abstractions.wasm": "sha256-0K3wd1Cpfj3JwnvLF0zSugGdNjSqpoB3Yr4C7QZrFpk=",
+      "Microsoft.IdentityModel.JsonWebTokens.wasm": "sha256-opugLw4gqMY2D/LXtNj6wkD25REaOC7pukeAaUB64z0=",
+      "Microsoft.IdentityModel.Logging.wasm": "sha256-Mpe/tGCWISOcsHffcUyCZ3zNQT/+pcsO/Ny+o3sAnuM=",
+      "Microsoft.IdentityModel.Tokens.wasm": "sha256-CkFDsM9K3ooBuECDKITqDzHgRvfpsD5ehNy6uD+Bxnw=",
       "Microsoft.JSInterop.wasm": "sha256-t9q43mL+SUSnDmA3kXTLQ42nvlXwYmnKxyqFFPYcifs=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-AQCuGvuEaOGJIRllBm0t1I9jKw+kNMrILxGeDDgzgzY=",
+      "System.IdentityModel.Tokens.Jwt.wasm": "sha256-8TeBE4L73467a+kpAbb1Lo/yuOG2jLb1TfsmUDU5RPs=",
       "System.IO.Pipelines.wasm": "sha256-JqVBy6SV+3qk+IK3VJiyIDt9CsVk6b1/ytTXmrI4mTM=",
       "Microsoft.CSharp.wasm": "sha256-JuDO8FnDFofnolPq6E+snLF+zIXdE+zA5pQHLo6yJms=",
       "Microsoft.VisualBasic.Core.wasm": "sha256-Yv61Vg2fp259Sl7q7/ZoApA457dyMRy3vmQZnQj570k=",
@@ -208,10 +213,10 @@
       "mscorlib.wasm": "sha256-oV7k+vcNqj7FS6Y/lMtdhVlq3myDH55/wVxmO4QPrw4=",
       "netstandard.wasm": "sha256-XMXMB0WW//vbNNgQiFAqYo7IJ2C4yQX590aoAbOtTB4=",
       "System.Private.CoreLib.wasm": "sha256-tuhzUgbFn7ji3yhMSxyBLHAps9h0RsFnq+8pUoizHiw=",
-      "GascarWeb.wasm": "sha256-TorHdE1zou+VePzK9QZ2P2HLerRpzWdbPfbv+tqUzXY="
+      "GascarWeb.wasm": "sha256-5lHFLgwLN95ZIbUpnbrGNiUTOn9z5lWh7uIzueeb7Yo="
     },
     "pdb": {
-      "GascarWeb.pdb": "sha256-PckMlKGmLGl2DrcQYzF5ydOByYOkIuxdI16MmWHau7A="
+      "GascarWeb.pdb": "sha256-Qoa+G1s6bY3dsCWCy45xhx818NhUz7anJfBXdu/Mu1s="
     }
   },
   "cacheBootResources": true,

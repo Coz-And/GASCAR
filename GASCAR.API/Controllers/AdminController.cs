@@ -9,32 +9,37 @@ namespace GASCAR.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "Admin")]
+
     public class AdminController : ControllerBase
-            [HttpGet("transactions")]
-            public async Task<IActionResult> GetAdminTransactions()
-            {
-                var transactions = await _db.Payments
-                    .Join(_db.Users,
-                          payment => payment.UserId,
-                          user => user.Id,
-                          (payment, user) => new GASCAR.Web.Models.AdminTransactionDto
-                          {
-                              UserId = user.Id.ToString(),
-                              Date = payment.StartTime,
-                              Type = payment.Type,
-                              Amount = payment.Amount,
-                              Status = payment.UserType // O altro campo se necessario
-                          })
-                    .ToListAsync();
-                return Ok(transactions);
-            }
     {
+
         private readonly AppDbContext _db;
 
         public AdminController(AppDbContext db)
         {
             _db = db;
         }
+
+
+        [HttpGet("transactions")]
+        public async Task<IActionResult> GetAdminTransactions()
+        {
+            var transactions = await _db.Payments
+                .Join(_db.Users,
+                      payment => payment.UserId,
+                      user => user.Id,
+                      (payment, user) => new GASCAR.API.Models.AdminTransactionDto
+                      {
+                          UserId = user.Id.ToString(),
+                          Date = payment.StartTime,
+                          Type = payment.Type,
+                          Amount = payment.Amount,
+                          Status = payment.UserType // O altro campo se necessario
+                      })
+                .ToListAsync();
+            return Ok(transactions);
+        }
+
 
         // --- API CRUD COLONNINE (ParkingSpot) ---
         [HttpGet("stations")]
@@ -109,8 +114,8 @@ namespace GASCAR.API.Controllers
                 .Where(p => p.Type == "Charging")
                 .Sum(p => p.Amount);
 
+
             return Ok(new { payments, totalParking, totalCharging });
         }
-
-}
+    }
 }

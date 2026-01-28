@@ -1,24 +1,106 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">GASCAR</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+﻿
+
+@inject GASCAR.Web.Services.AuthStateService AuthState
+@inject NavigationManager Nav
+
+
+<div class="top-row ps-3 navbar navbar-dark shadow-sm">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <button class="btn btn-link navbar-brand fw-bold p-0 m-0 text-white" style="text-decoration:none;" @onclick="NavigateHome">
+            <span class="bi bi-lightning-charge-fill me-2"></span>GASCAR
+        </button>
+        <div class="d-flex align-items-center">
+            @if (!AuthState.IsAuthenticated)
+            {
+                <NavLink class="nav-link text-white" href="/login">
+                    <span class="bi bi-box-arrow-in-right"></span> Login
+                </NavLink>
+                <NavLink class="nav-link text-white" href="/register">
+                    <span class="bi bi-person-plus"></span> Registrati
+                </NavLink>
+            }
+            else
+            {
+                <span class="me-2">Benvenuto!</span>
+                <button class="btn btn-outline-light btn-sm" @onclick="Logout">Logout</button>
+            }
+        </div>
+        <button title="Navigation menu" class="navbar-toggler ms-2" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="login">
-                <span class="bi bi-box-arrow-in-right" aria-hidden="true"></span> Login
+
+<div class="@NavMenuCssClass nav-scrollable bg-dark text-white" style="min-height:100vh;">
+    <nav class="nav flex-column py-3">
+        <div class="nav-item px-3 mb-2">
+            <NavLink class="nav-link text-white" href="/">
+                <span class="bi bi-house-door-fill"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="register">
-                <span class="bi bi-person-plus" aria-hidden="true"></span> Registrati
-            </NavLink>
-        </div>
+        @if (!AuthState.IsAuthenticated)
+        {
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/login">
+                    <span class="bi bi-box-arrow-in-right"></span> Login
+                </NavLink>
+            </div>
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/register">
+                    <span class="bi bi-person-plus"></span> Registrati
+                </NavLink>
+            </div>
+        }
+        else
+        {
+            @if (AuthState.IsAdmin)
+            {
+                <div class="dropdown-divider my-2"></div>
+                <div class="nav-item px-3 mb-2 fw-bold text-warning">ADMIN</div>
+                <div class="nav-item px-3 mb-2">
+                    <NavLink class="nav-link text-warning" href="/admin">
+                        <span class="bi bi-shield-lock"></span> Dashboard Admin
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3 mb-2">
+                    <NavLink class="nav-link text-warning" href="/admin/stations">
+                        <span class="bi bi-ev-station"></span> Colonnine
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3 mb-2">
+                    <NavLink class="nav-link text-warning" href="/admin/edit-stations">
+                        <span class="bi bi-pencil-square"></span> Modifica Colonnine
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3 mb-2">
+                    <NavLink class="nav-link text-warning" href="/admin/transactions">
+                        <span class="bi bi-cash-coin"></span> Transazioni Utenti
+                    </NavLink>
+                </div>
+                <div class="dropdown-divider my-2"></div>
+            }
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/dashboard">
+                    <span class="bi bi-speedometer2"></span> Dashboard
+                </NavLink>
+            </div>
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/notifications">
+                    <span class="bi bi-bell"></span> Notifiche
+                </NavLink>
+            </div>
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/cars">
+                    <span class="bi bi-car-front"></span> Le tue auto
+                </NavLink>
+            </div>
+            <div class="nav-item px-3 mb-2">
+                <NavLink class="nav-link text-white" href="/transactions">
+                    <span class="bi bi-list-nested"></span> Transazioni
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 
@@ -27,8 +109,20 @@
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void Logout()
+    {
+        AuthState.Logout();
+        Nav.NavigateTo("/");
+    }
+
+    private void NavigateHome()
+    {
+        Nav.NavigateTo("/");
     }
 }
