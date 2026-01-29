@@ -14,20 +14,8 @@
             <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
             <NavLink href="/cars">Auto</NavLink>
             <NavLink href="/charging">Ricarica</NavLink>
-
-            @if (Auth.IsAuthenticated)
-            {
-                <NavLink href="/payments">Pagamenti</NavLink>
-                <button @onclick="Auth.Logout"
-                        style="background:none; border:none; color:#f87171; cursor:pointer">
-                    Logout
-                </button>
-            }
-            else
-            {
-                <NavLink href="/login">Login</NavLink>
-            }
         </div>
+
     </nav>
 
     <main style="padding:32px;">

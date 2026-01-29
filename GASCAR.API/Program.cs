@@ -23,7 +23,7 @@ builder.Services.AddScoped<PaymentService>();
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("AllowBlazor", p =>
-        p.WithOrigins("http://localhost:5213", "http://localhost:5174")
+        p.WithOrigins("http://localhost:5213", "http://localhost:5174", "http://localhost:5184")
          .AllowAnyHeader()
          .AllowAnyMethod());
 });
@@ -55,18 +55,13 @@ using (var scope = app.Services.CreateScope())
     DbSeeder.Seed(db);
 }
 
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
-
-app.MapControllers();
-app.MapFallbackToFile("index.html");
+app.UseCors("AllowBlazor");
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("AllowBlazor");
-app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run("http://localhost:5184");
