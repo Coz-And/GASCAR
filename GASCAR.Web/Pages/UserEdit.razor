@@ -1,0 +1,62 @@
+@page "/user/edit"
+@using GASCAR.Web.Services
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4" style="max-width:500px;">
+        <h2 class="mb-4">Modifica Dati Utente</h2>
+        <EditForm Model="userModel" OnValidSubmit="HandleValidSubmit">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <InputText class="form-control" @bind-Value="userModel.Username" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <InputText class="form-control" @bind-Value="userModel.Email" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nuova Password</label>
+                <InputText class="form-control" @bind-Value="userModel.Password" type="password" />
+            </div>
+            <button type="submit" class="btn btn-success">Salva Modifiche</button>
+        </EditForm>
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-info mt-3">@message</div>
+        }
+    </div>
+}
+
+@code {
+    UserEditModel userModel = new();
+    string? message;
+
+    protected override void OnInitialized()
+    {
+        // Precompila i dati utente se disponibili
+        userModel.Username = AuthState.Username;
+        userModel.Email = ""; // Da popolare con il dato reale se disponibile
+    }
+
+    void HandleValidSubmit()
+    {
+        // Qui andrebbe la logica di salvataggio
+        message = "Dati aggiornati con successo! (mock)";
+    }
+
+    public class UserEditModel
+    {
+        public string? Username { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+    }
+}

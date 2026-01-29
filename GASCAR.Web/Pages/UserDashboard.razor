@@ -12,7 +12,14 @@
 }
 else
 {
-    <div class="container mt-4">
+    <nav style="display:flex; justify-content:space-between; align-items:center; padding:18px 32px; background:#18181b; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.10); margin-top:24px; margin-bottom:32px;">
+        <span style="font-size:1.5rem; font-weight:bold; color:#60a5fa; letter-spacing:2px;">Utente</span>
+        <div style="display:flex; gap:18px; align-items:center;">
+            <a href="/user/edit" class="btn btn-outline-light" style="border-radius:20px; font-weight:500;">Modifica dati</a>
+            <button @onclick="Logout" class="btn btn-danger" style="border-radius:20px; font-weight:500;">Logout</button>
+        </div>
+    </nav>
+    <div class="container mt-2">
         <h2 class="mb-4">Dashboard Utente</h2>
 
         <div class="row">
