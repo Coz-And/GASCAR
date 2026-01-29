@@ -4292,11 +4292,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj",
+      "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
       "projectName": "GASCAR.API",
-      "projectPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj",
+      "projectPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
       "packagesPath": "C:\\Users\\cozan\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\obj\\",
+      "outputPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cozan\\AppData\\Roaming\\NuGet\\NuGet.Config"

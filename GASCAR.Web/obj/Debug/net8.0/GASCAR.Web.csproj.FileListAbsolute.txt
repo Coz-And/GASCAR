@@ -1,8 +1,8 @@
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.csproj.AssemblyReference.cache
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\rpswa.dswa.cache.json
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.GeneratedMSBuildEditorConfig.editorconfig
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.AssemblyInfoInputs.cache
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.AssemblyInfo.cs
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.csproj.CoreCompileInputs.cache
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GascarWeb.MvcApplicationPartsAssemblyInfo.cache
-D:\Documents\GitHub\GASCAR\gascar.web\obj\Debug\net8.0\GASCAR.Web.sourcelink.json
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.csproj.AssemblyReference.cache
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.AssemblyInfoInputs.cache
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.AssemblyInfo.cs
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.csproj.CoreCompileInputs.cache
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GascarWeb.MvcApplicationPartsAssemblyInfo.cache
+D:\Documents\GitHub\GASCAR\GASCAR.Web\obj\Debug\net8.0\GASCAR.Web.sourcelink.json
