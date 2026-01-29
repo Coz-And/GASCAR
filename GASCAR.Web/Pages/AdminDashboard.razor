@@ -12,23 +12,43 @@
 }
 else
 {
-    <div class="container mt-4">
+    <nav style="display:flex; justify-content:space-between; align-items:center; padding:18px 32px; background:#18181b; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.10); margin-top:24px; margin-bottom:32px;">
+        <span style="font-size:1.5rem; font-weight:bold; color:#4ade80; letter-spacing:2px;">Admin</span>
+        <div style="display:flex; gap:18px; align-items:center;">
+            <a href="/admin/edit-profile" class="btn btn-outline-light" style="border-radius:20px; font-weight:500;">Modifica dati admin</a>
+            <button @onclick="Logout" class="btn btn-danger" style="border-radius:20px; font-weight:500;">Logout</button>
+        </div>
+    </nav>
+    <div class="container mt-2">
         <h2 class="mb-4">Area Amministratore</h2>
-        <div class="mb-4">
-            <h5>Informazioni Admin</h5>
-            <ul class="list-group">
-                <li class="list-group-item"><strong>Username:</strong> @AuthState?.Username</li>
-                <li class="list-group-item"><strong>Ruolo:</strong> @AuthState?.UserRole</li>
-                <!-- Aggiungi altre info admin se disponibili -->
-            </ul>
-        </div>
-        <div class="mb-4">
-            <a href="/admin/edit-profile" class="btn btn-primary me-2">Modifica dati admin</a>
-            <button @onclick="Logout" class="btn btn-danger">Logout</button>
-        </div>
-        <div class="mb-4">
-            <a href="/admin/stations" class="btn btn-outline-secondary me-2">Gestisci Colonnine</a>
-            <a href="/admin/transactions" class="btn btn-outline-secondary me-2">Transazioni</a>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Controllo Colonnine</h5>
+                        <p class="card-text">Visualizza e gestisci lo stato delle colonnine di ricarica.</p>
+                        <a href="/admin/stations" class="btn btn-outline-primary">Vai al controllo</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Modifica Colonnine</h5>
+                        <p class="card-text">Aggiungi, modifica o rimuovi colonnine di ricarica.</p>
+                        <a href="/admin/edit-stations" class="btn btn-outline-success">Modifica colonnine</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Pagamenti Utenti</h5>
+                        <p class="card-text">Visualizza tutte le transazioni e i pagamenti degli utenti.</p>
+                        <a href="/admin/transactions" class="btn btn-outline-warning">Vedi pagamenti</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }

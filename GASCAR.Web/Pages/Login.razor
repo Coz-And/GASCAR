@@ -60,14 +60,14 @@
 
             if (ok)
             {
-                // Semplice check: se l'email contiene 'admin' vai su /admin/hub, altrimenti su /
+                // Se l'utente è admin, vai su /admin (dashboard), altrimenti su /
                 if (!string.IsNullOrEmpty(model.Email) && model.Email.ToLower().Contains("admin"))
                 {
-                    Nav.NavigateTo("/admin/hub");
+                    Nav.NavigateTo("/admin");
                 }
                 else
                 {
-                    Nav.NavigateTo("/");
+                    Nav.NavigateTo("/dashboard");
                 }
             }
             else
