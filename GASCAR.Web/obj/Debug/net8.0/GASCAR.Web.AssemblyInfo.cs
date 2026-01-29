@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GascarWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3690dbad04e31b9cd955b209f7ea7e184d4caa6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12a25b9c98f06b0371271aa7e4f2ddde76be537e")]
 [assembly: System.Reflection.AssemblyProductAttribute("GascarWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GascarWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

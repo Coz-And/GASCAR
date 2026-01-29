@@ -23,6 +23,26 @@ namespace GASCAR.Web.Services
             return res.IsSuccessStatusCode;
         }
 
+        public async Task<bool> CreatePayment(PaymentDto payment)
+        {
+            try
+            {
+                AttachToken();
+                var res = await _http.PostAsJsonAsync("api/payments", payment);
+                return res.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore CreatePayment: {ex.Message}");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout CreatePayment - API non risponde");
+                return false;
+            }
+        }
+
         private void AttachToken()
         {
             if (!string.IsNullOrEmpty(_auth.Token))
@@ -39,12 +59,64 @@ namespace GASCAR.Web.Services
             return res.IsSuccessStatusCode;
         }
 
+        public async Task<bool> CreateCar(CarDto car)
+        {
+            try
+            {
+                AttachToken();
+                var res = await _http.PostAsJsonAsync("api/cars", car);
+                return res.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore CreateCar: {ex.Message}");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout CreateCar - API non risponde");
+                return false;
+            }
+        }
+
         // --- CRUD COLONNINE (ParkingSpot) ---
         public async Task<List<ChargingStationDto>> GetStations()
         {
-            AttachToken();
-            var result = await _http.GetFromJsonAsync<List<ChargingStationDto>>("api/admin/stations");
-            return result ?? new();
+            try
+            {
+                AttachToken();
+                var result = await _http.GetFromJsonAsync<List<ChargingStationDto>>("api/admin/stations");
+                return result ?? new();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore GetStations: {ex.Message}");
+                return new();
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout GetStations - API non risponde");
+                return new();
+            }
+        }
+
+        public async Task<List<ParkingSpotDto>> GetPublicStations()
+        {
+            try
+            {
+                var result = await _http.GetFromJsonAsync<List<ParkingSpotDto>>("api/parking/spots");
+                return result ?? new();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore GetPublicStations: {ex.Message}");
+                return new();
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout GetPublicStations - API non risponde");
+                return new();
+            }
         }
 
         public async Task<ChargingStationDto?> AddStation(ChargingStationDto station)

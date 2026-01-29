@@ -62,4 +62,16 @@ public class PaymentService
         await _db.SaveChangesAsync();
         return true;
     }
+
+    public async Task<List<Payment>> GetUserPaymentsAsync(int userId)
+    {
+        return await _db.Payments.Where(p => p.UserId == userId).ToListAsync();
+    }
+
+    public async Task<Payment?> CreatePaymentAsync(Payment payment)
+    {
+        _db.Payments.Add(payment);
+        await _db.SaveChangesAsync();
+        return payment;
+    }
 }

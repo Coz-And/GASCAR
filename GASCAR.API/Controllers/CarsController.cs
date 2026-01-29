@@ -17,6 +17,30 @@ public class CarsController : ControllerBase
         _db = db;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetCars()
+    {
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+            return Unauthorized();
+        
+        var cars = await _db.Cars.Where(c => c.UserId == userId).ToListAsync();
+        return Ok(cars);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCar([FromBody] Car car)
+    {
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+            return Unauthorized();
+        
+        car.UserId = userId;
+        _db.Cars.Add(car);
+        await _db.SaveChangesAsync();
+        return Ok(car);
+    }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCar(int id, [FromBody] Car car)
     {

@@ -45,7 +45,7 @@ else
                     @foreach (var car in cars)
                     {
                         <li class="list-group-item">
-                            <EditForm Model="car" OnValidSubmit="() => SaveCar(car)">
+                            <EditForm Model="car" OnValidSubmit="() => SaveCar(car)" Context="formContextCar">
                                 <div class="row g-2 align-items-center">
                                     <div class="col-md-4">
                                         <InputText class="form-control" @bind-Value="car.Model" />
@@ -65,6 +65,28 @@ else
                     }
                 </ul>
             }
+            <div class="card p-3 mb-4 bg-light">
+                <h6 class="card-title">Aggiungi Nuova Auto</h6>
+                <EditForm Model="newCar" OnValidSubmit="() => AddCar()" Context="formContextNewCar">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <label class="form-label">Modello</label>
+                            <InputText class="form-control" @bind-Value="newCar.Model" placeholder="Es. Tesla Model 3" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Carica Attuale (%)</label>
+                            <InputNumber class="form-control" @bind-Value="newCar.CurrentChargePercent" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Capacità Batteria (kWh)</label>
+                            <InputNumber class="form-control" @bind-Value="newCar.BatteryCapacityKw" />
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-sm btn-info w-100">Aggiungi</button>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
             <h5 class="mt-4">Metodi di pagamento</h5>
             @if (payments == null)
             {
@@ -80,7 +102,7 @@ else
                     @foreach (var pay in payments)
                     {
                         <li class="list-group-item">
-                            <EditForm Model="pay" OnValidSubmit="() => SavePayment(pay)">
+                            <EditForm Model="pay" OnValidSubmit="() => SavePayment(pay)" Context="formContextPay">
                                 <div class="row g-2 align-items-center">
                                     <div class="col-md-3">
                                         <InputText class="form-control" @bind-Value="pay.Type" />
@@ -100,6 +122,28 @@ else
                     }
                 </ul>
             }
+            <div class="card p-3 mb-4 bg-light">
+                <h6 class="card-title">Aggiungi Nuovo Metodo di Pagamento</h6>
+                <EditForm Model="newPayment" OnValidSubmit="() => AddPayment()" Context="formContextNewPayment">
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <label class="form-label">Tipo</label>
+                            <InputText class="form-control" @bind-Value="newPayment.Type" placeholder="Es. Carta Credito" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Importo (€)</label>
+                            <InputNumber class="form-control" @bind-Value="newPayment.Amount" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Data</label>
+                            <InputDate class="form-control" @bind-Value="newPayment.StartTime" />
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-sm btn-info w-100">Aggiungi</button>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
             <button type="submit" class="btn btn-success">Salva Modifiche</button>
         </EditForm>
         @if (!string.IsNullOrEmpty(message))
@@ -115,6 +159,8 @@ else
     string? message;
     List<CarDto>? cars;
     List<PaymentDto>? payments;
+    CarDto newCar = new();
+    PaymentDto newPayment = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -136,6 +182,25 @@ else
             message = $"Errore durante il salvataggio dell'auto '{car.Model}'";
     }
 
+    async Task AddCar()
+    {
+        if (string.IsNullOrWhiteSpace(newCar.Model))
+        {
+            message = "Inserisci il modello dell'auto";
+            return;
+        }
+        
+        var ok = await Api.CreateCar(newCar);
+        if (ok)
+        {
+            message = $"Auto '{newCar.Model}' aggiunta con successo!";
+            cars = await Api.GetCars();
+            newCar = new();
+        }
+        else
+            message = $"Errore durante l'aggiunta dell'auto";
+    }
+
     async Task SavePayment(PaymentDto pay)
     {
         var ok = await Api.UpdatePayment(pay);
@@ -143,6 +208,31 @@ else
             message = $"Pagamento '{pay.Type}' aggiornato!";
         else
             message = $"Errore durante il salvataggio del pagamento '{pay.Type}'";
+    }
+
+    async Task AddPayment()
+    {
+        if (string.IsNullOrWhiteSpace(newPayment.Type))
+        {
+            message = "Inserisci il tipo di pagamento";
+            return;
+        }
+        
+        if (newPayment.Amount <= 0)
+        {
+            message = "L'importo deve essere maggiore di 0";
+            return;
+        }
+
+        var ok = await Api.CreatePayment(newPayment);
+        if (ok)
+        {
+            message = $"Metodo '{newPayment.Type}' aggiunto con successo!";
+            payments = await Api.GetPayments();
+            newPayment = new();
+        }
+        else
+            message = $"Errore durante l'aggiunta del metodo di pagamento";
     }
 
     void HandleValidSubmit()
