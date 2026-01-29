@@ -1,9 +1,10 @@
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using GASCAR.Web.Models;
+    using System.Net.Http.Json;
+    using GASCAR.Web.Models;
 
 namespace GASCAR.Web.Services
 {
+
     public class ApiService
     {
         private readonly HttpClient _http;
@@ -15,6 +16,13 @@ namespace GASCAR.Web.Services
             _auth = auth;
         }
 
+        public async Task<bool> UpdatePayment(PaymentDto payment)
+        {
+            AttachToken();
+            var res = await _http.PutAsJsonAsync($"api/payments/{payment.Id}", payment);
+            return res.IsSuccessStatusCode;
+        }
+
         private void AttachToken()
         {
             if (!string.IsNullOrEmpty(_auth.Token))
@@ -22,6 +30,13 @@ namespace GASCAR.Web.Services
                 _http.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _auth.Token);
             }
+        }
+
+        public async Task<bool> UpdateCar(CarDto car)
+        {
+            AttachToken();
+            var res = await _http.PutAsJsonAsync($"api/cars/{car.Id}", car);
+            return res.IsSuccessStatusCode;
         }
 
         // --- CRUD COLONNINE (ParkingSpot) ---

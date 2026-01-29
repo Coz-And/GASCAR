@@ -1,6 +1,9 @@
 @page "/user/edit"
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
 @using GASCAR.Web.Services
 @inject AuthStateService AuthState
+@inject ApiService Api
 @inject NavigationManager Navigation
 
 @if (!AuthState.IsAuthenticated)
@@ -12,7 +15,7 @@
 }
 else
 {
-    <div class="container mt-4" style="max-width:500px;">
+    <div class="container mt-4" style="max-width:600px;">
         <h2 class="mb-4">Modifica Dati Utente</h2>
         <EditForm Model="userModel" OnValidSubmit="HandleValidSubmit">
             <div class="mb-3">
@@ -27,6 +30,76 @@ else
                 <label class="form-label">Nuova Password</label>
                 <InputText class="form-control" @bind-Value="userModel.Password" type="password" />
             </div>
+            <h5 class="mt-4">Auto registrate</h5>
+            @if (cars == null)
+            {
+                <div>Caricamento auto...</div>
+            }
+            else if (cars.Count == 0)
+            {
+                <div>Nessuna auto registrata.</div>
+            }
+            else
+            {
+                <ul class="list-group mb-3">
+                    @foreach (var car in cars)
+                    {
+                        <li class="list-group-item">
+                            <EditForm Model="car" OnValidSubmit="() => SaveCar(car)">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <InputText class="form-control" @bind-Value="car.Model" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <InputNumber class="form-control" @bind-Value="car.CurrentChargePercent" /> %
+                                    </div>
+                                    <div class="col-md-3">
+                                        <InputNumber class="form-control" @bind-Value="car.BatteryCapacityKw" /> kWh
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary">Salva</button>
+                                    </div>
+                                </div>
+                            </EditForm>
+                        </li>
+                    }
+                </ul>
+            }
+            <h5 class="mt-4">Metodi di pagamento</h5>
+            @if (payments == null)
+            {
+                <div>Caricamento pagamenti...</div>
+            }
+            else if (payments.Count == 0)
+            {
+                <div>Nessun pagamento registrato.</div>
+            }
+            else
+            {
+                <ul class="list-group mb-3">
+                    @foreach (var pay in payments)
+                    {
+                        <li class="list-group-item">
+                            <EditForm Model="pay" OnValidSubmit="() => SavePayment(pay)">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-3">
+                                        <InputText class="form-control" @bind-Value="pay.Type" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <InputNumber class="form-control" @bind-Value="pay.Amount" /> €
+                                    </div>
+                                    <div class="col-md-3">
+                                        <InputDate class="form-control" @bind-Value="pay.StartTime" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-sm btn-primary">Salva</button>
+                                    </div>
+                                </div>
+                            </EditForm>
+                        </li>
+                    }
+                </ul>
+            }
             <button type="submit" class="btn btn-success">Salva Modifiche</button>
         </EditForm>
         @if (!string.IsNullOrEmpty(message))
@@ -37,19 +110,44 @@ else
 }
 
 @code {
+
     UserEditModel userModel = new();
     string? message;
+    List<CarDto>? cars;
+    List<PaymentDto>? payments;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         // Precompila i dati utente se disponibili
         userModel.Username = AuthState.Username;
-        userModel.Email = ""; // Da popolare con il dato reale se disponibile
+        userModel.Email = AuthState.Username ?? "";
+        cars = await Api.GetCars();
+        payments = await Api.GetPayments();
+    }
+
+
+
+    async Task SaveCar(CarDto car)
+    {
+        var ok = await Api.UpdateCar(car);
+        if (ok)
+            message = $"Auto '{car.Model}' aggiornata!";
+        else
+            message = $"Errore durante il salvataggio dell'auto '{car.Model}'";
+    }
+
+    async Task SavePayment(PaymentDto pay)
+    {
+        var ok = await Api.UpdatePayment(pay);
+        if (ok)
+            message = $"Pagamento '{pay.Type}' aggiornato!";
+        else
+            message = $"Errore durante il salvataggio del pagamento '{pay.Type}'";
     }
 
     void HandleValidSubmit()
     {
-        // Qui andrebbe la logica di salvataggio
+        // Qui andrebbe la logica di salvataggio dati utente
         message = "Dati aggiornati con successo! (mock)";
     }
 

@@ -1,0 +1,175 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build-and-test-web",
+			"type": "shell",
+			"command": "dotnet build && dotnet test",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "test"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "test-web",
+			"type": "shell",
+			"command": "dotnet test",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "test"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build-web",
+			"type": "shell",
+			"command": "dotnet build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		}
+	]
+}

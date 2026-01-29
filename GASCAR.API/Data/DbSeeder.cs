@@ -7,9 +7,14 @@ public static class DbSeeder
 {
     public static void Seed(AppDbContext db)
     {
-        // Evita di seedare se i dati esistono già
-        if (db.MWBots.Any() || db.Tariffs.Any() || db.ParkingSpots.Any())
-            return;
+
+        // Cancella tutti gli utenti normali (non admin)
+        var normalUsers = db.Users.Where(u => u.Role != "Admin").ToList();
+        if (normalUsers.Any())
+        {
+            db.Users.RemoveRange(normalUsers);
+            db.SaveChanges();
+        }
 
         // Seed Admin User
         if (!db.Users.Any(u => u.Email == "admin@gascar.com"))
@@ -22,6 +27,19 @@ public static class DbSeeder
                 UserType = "Administrator"
             };
             db.Users.Add(adminUser);
+        }
+
+        // Seed utente base predefinito
+        if (!db.Users.Any(u => u.Email == "utente@gascar.com"))
+        {
+            var baseUser = new User
+            {
+                Email = "utente@gascar.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Utente123!"),
+                Role = "User",
+                UserType = "Base"
+            };
+            db.Users.Add(baseUser);
         }
 
         // Seed MWBot (Mobile Waiter Bot)

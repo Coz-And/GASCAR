@@ -45,4 +45,21 @@ public class PaymentService
 
         await _db.SaveChangesAsync();
     }
+
+    public async Task<bool> UpdatePaymentAsync(Payment payment)
+    {
+        var existing = await _db.Payments.FindAsync(payment.Id);
+        if (existing == null)
+            return false;
+
+        existing.Amount = payment.Amount;
+        existing.Type = payment.Type;
+        existing.StartTime = payment.StartTime;
+        existing.EndTime = payment.EndTime;
+        existing.UserType = payment.UserType;
+        // UserId non modificabile per sicurezza
+
+        await _db.SaveChangesAsync();
+        return true;
+    }
 }
