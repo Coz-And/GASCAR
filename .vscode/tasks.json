@@ -170,6 +170,13 @@
 				"$msCompile"
 			],
 			"group": "build"
+		},
+		{
+			"label": "Run GASCAR.Web",
+			"type": "shell",
+			"command": "dotnet run --project GASCAR.Web/GASCAR.Web.csproj",
+			"isBackground": true,
+			"group": "build"
 		}
 	]
 }
