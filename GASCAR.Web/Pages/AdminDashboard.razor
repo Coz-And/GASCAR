@@ -13,51 +13,22 @@
 else
 {
     <div class="container mt-4">
-        <h2 class="mb-4">Dashboard Admin</h2>
-
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="mb-3">
-                            <span style="font-size: 3rem;">🔌</span>
-                        </div>
-                        <h5 class="card-title">Controllo Colonnine</h5>
-                        <p class="card-text">Gestisci lo stato delle colonnine di ricarica</p>
-                        <a href="/admin/stations" class="btn btn-primary">Gestisci Colonnine</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="mb-3">
-                            <span style="font-size: 3rem;">⚙️</span>
-                        </div>
-                        <h5 class="card-title">Modifica Colonnine</h5>
-                        <p class="card-text">Aggiungi, modifica o rimuovi colonnine</p>
-                        <a href="/admin/edit-stations" class="btn btn-success">Modifica Colonnine</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="mb-3">
-                            <span style="font-size: 3rem;">📊</span>
-                        </div>
-                        <h5 class="card-title">Transazioni Utenti</h5>
-                        <p class="card-text">Visualizza le transazioni di tutti gli utenti</p>
-                        <a href="/admin/transactions" class="btn btn-warning">Vedi Transazioni</a>
-                    </div>
-                </div>
-            </div>
+        <h2 class="mb-4">Area Amministratore</h2>
+        <div class="mb-4">
+            <h5>Informazioni Admin</h5>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Username:</strong> @AuthState?.Username</li>
+                <li class="list-group-item"><strong>Ruolo:</strong> @AuthState?.UserRole</li>
+                <!-- Aggiungi altre info admin se disponibili -->
+            </ul>
         </div>
-
-        <div class="mt-4">
+        <div class="mb-4">
+            <a href="/admin/edit-profile" class="btn btn-primary me-2">Modifica dati admin</a>
             <button @onclick="Logout" class="btn btn-danger">Logout</button>
+        </div>
+        <div class="mb-4">
+            <a href="/admin/stations" class="btn btn-outline-secondary me-2">Gestisci Colonnine</a>
+            <a href="/admin/transactions" class="btn btn-outline-secondary me-2">Transazioni</a>
         </div>
     </div>
 }
