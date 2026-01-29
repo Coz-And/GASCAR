@@ -30,125 +30,29 @@ else
                 <label class="form-label">Nuova Password</label>
                 <InputText class="form-control" @bind-Value="userModel.Password" type="password" />
             </div>
-            <h5 class="mt-4">Auto registrate</h5>
-            @if (cars == null)
-            {
-                <div>Caricamento auto...</div>
-            }
-            else if (cars.Count == 0)
-            {
-                <div>Nessuna auto registrata.</div>
-            }
-            else
-            {
-                <ul class="list-group mb-3">
-                    @foreach (var car in cars)
-                    {
-                        <li class="list-group-item">
-                            <EditForm Model="car" OnValidSubmit="() => SaveCar(car)" Context="formContextCar">
-                                <div class="row g-2 align-items-center">
-                                    <div class="col-md-4">
-                                        <InputText class="form-control" @bind-Value="car.Model" />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <InputNumber class="form-control" @bind-Value="car.CurrentChargePercent" /> %
-                                    </div>
-                                    <div class="col-md-3">
-                                        <InputNumber class="form-control" @bind-Value="car.BatteryCapacityKw" /> kWh
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" class="btn btn-sm btn-primary">Salva</button>
-                                    </div>
-                                </div>
-                            </EditForm>
-                        </li>
-                    }
-                </ul>
-            }
-            <div class="card p-3 mb-4 bg-light">
-                <h6 class="card-title">Aggiungi Nuova Auto</h6>
-                <EditForm Model="newCar" OnValidSubmit="() => AddCar()" Context="formContextNewCar">
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <label class="form-label">Modello</label>
-                            <InputText class="form-control" @bind-Value="newCar.Model" placeholder="Es. Tesla Model 3" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Carica Attuale (%)</label>
-                            <InputNumber class="form-control" @bind-Value="newCar.CurrentChargePercent" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Capacità Batteria (kWh)</label>
-                            <InputNumber class="form-control" @bind-Value="newCar.BatteryCapacityKw" />
-                        </div>
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="submit" class="btn btn-sm btn-info w-100">Aggiungi</button>
-                        </div>
-                    </div>
-                </EditForm>
-            </div>
-            <h5 class="mt-4">Metodi di pagamento</h5>
-            @if (payments == null)
-            {
-                <div>Caricamento pagamenti...</div>
-            }
-            else if (payments.Count == 0)
-            {
-                <div>Nessun pagamento registrato.</div>
-            }
-            else
-            {
-                <ul class="list-group mb-3">
-                    @foreach (var pay in payments)
-                    {
-                        <li class="list-group-item">
-                            <EditForm Model="pay" OnValidSubmit="() => SavePayment(pay)" Context="formContextPay">
-                                <div class="row g-2 align-items-center">
-                                    <div class="col-md-3">
-                                        <InputText class="form-control" @bind-Value="pay.Type" />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <InputNumber class="form-control" @bind-Value="pay.Amount" /> €
-                                    </div>
-                                    <div class="col-md-3">
-                                        <InputDate class="form-control" @bind-Value="pay.StartTime" />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="submit" class="btn btn-sm btn-primary">Salva</button>
-                                    </div>
-                                </div>
-                            </EditForm>
-                        </li>
-                    }
-                </ul>
-            }
-            <div class="card p-3 mb-4 bg-light">
-                <h6 class="card-title">Aggiungi Nuovo Metodo di Pagamento</h6>
-                <EditForm Model="newPayment" OnValidSubmit="() => AddPayment()" Context="formContextNewPayment">
-                    <div class="row g-2">
-                        <div class="col-md-3">
-                            <label class="form-label">Tipo</label>
-                            <InputText class="form-control" @bind-Value="newPayment.Type" placeholder="Es. Carta Credito" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Importo (€)</label>
-                            <InputNumber class="form-control" @bind-Value="newPayment.Amount" />
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Data</label>
-                            <InputDate class="form-control" @bind-Value="newPayment.StartTime" />
-                        </div>
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button type="submit" class="btn btn-sm btn-info w-100">Aggiungi</button>
-                        </div>
-                    </div>
-                </EditForm>
-            </div>
             <button type="submit" class="btn btn-success">Salva Modifiche</button>
+        </EditForm>
+
+        <hr />
+        <h4 class="mt-4">Registra una nuova auto</h4>
+        <EditForm Model="carModel" OnValidSubmit="HandleCarSubmit">
+            <div class="mb-3">
+                <label class="form-label">Modello Auto</label>
+                <InputText class="form-control" @bind-Value="carModel.Model" placeholder="Es: Fiat 500" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Capacità Batteria (kWh)</label>
+                <InputNumber class="form-control" @bind-Value="carModel.BatteryCapacityKw" placeholder="Es: 40" />
+            </div>
+            <button type="submit" class="btn btn-primary">Registra Auto</button>
         </EditForm>
         @if (!string.IsNullOrEmpty(message))
         {
             <div class="alert alert-info mt-3">@message</div>
+        }
+        @if (!string.IsNullOrEmpty(carMessage))
+        {
+            <div class="alert alert-success mt-3">@carMessage</div>
         }
     </div>
 }
@@ -157,88 +61,43 @@ else
 
     UserEditModel userModel = new();
     string? message;
-    List<CarDto>? cars;
-    List<PaymentDto>? payments;
-    CarDto newCar = new();
-    PaymentDto newPayment = new();
+    CarDto carModel = new();
+    string? carMessage;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         // Precompila i dati utente se disponibili
         userModel.Username = AuthState.Username;
         userModel.Email = AuthState.Username ?? "";
-        cars = await Api.GetCars();
-        payments = await Api.GetPayments();
     }
 
 
 
-    async Task SaveCar(CarDto car)
-    {
-        var ok = await Api.UpdateCar(car);
-        if (ok)
-            message = $"Auto '{car.Model}' aggiornata!";
-        else
-            message = $"Errore durante il salvataggio dell'auto '{car.Model}'";
-    }
-
-    async Task AddCar()
-    {
-        if (string.IsNullOrWhiteSpace(newCar.Model))
-        {
-            message = "Inserisci il modello dell'auto";
-            return;
-        }
-        
-        var ok = await Api.CreateCar(newCar);
-        if (ok)
-        {
-            message = $"Auto '{newCar.Model}' aggiunta con successo!";
-            cars = await Api.GetCars();
-            newCar = new();
-        }
-        else
-            message = $"Errore durante l'aggiunta dell'auto";
-    }
-
-    async Task SavePayment(PaymentDto pay)
-    {
-        var ok = await Api.UpdatePayment(pay);
-        if (ok)
-            message = $"Pagamento '{pay.Type}' aggiornato!";
-        else
-            message = $"Errore durante il salvataggio del pagamento '{pay.Type}'";
-    }
-
-    async Task AddPayment()
-    {
-        if (string.IsNullOrWhiteSpace(newPayment.Type))
-        {
-            message = "Inserisci il tipo di pagamento";
-            return;
-        }
-        
-        if (newPayment.Amount <= 0)
-        {
-            message = "L'importo deve essere maggiore di 0";
-            return;
-        }
-
-        var ok = await Api.CreatePayment(newPayment);
-        if (ok)
-        {
-            message = $"Metodo '{newPayment.Type}' aggiunto con successo!";
-            payments = await Api.GetPayments();
-            newPayment = new();
-        }
-        else
-            message = $"Errore durante l'aggiunta del metodo di pagamento";
-    }
 
     void HandleValidSubmit()
     {
         // Qui andrebbe la logica di salvataggio dati utente
         message = "Dati aggiornati con successo! (mock)";
+    }
+
+    async Task HandleCarSubmit()
+    {
+        carMessage = string.Empty;
+        if (string.IsNullOrWhiteSpace(carModel.Model) || carModel.BatteryCapacityKw <= 0)
+        {
+            carMessage = "❌ Inserisci modello e capacità batteria valida.";
+            return;
+        }
+        var ok = await Api.CreateCar(carModel);
+        if (ok)
+        {
+            carMessage = $"✅ Auto '{carModel.Model}' registrata con successo!";
+            carModel = new CarDto();
+        }
+        else
+        {
+            carMessage = "❌ Errore durante la registrazione dell'auto.";
+        }
     }
 
     public class UserEditModel

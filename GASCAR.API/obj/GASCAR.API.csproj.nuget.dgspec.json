@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj": {}
+    "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj": {
+    "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
+        "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj",
         "projectName": "GASCAR.API",
-        "projectPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
+        "projectPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\GASCAR.API.csproj",
         "packagesPath": "C:\\Users\\cozan\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\obj\\",
+        "outputPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cozan\\AppData\\Roaming\\NuGet\\NuGet.Config"

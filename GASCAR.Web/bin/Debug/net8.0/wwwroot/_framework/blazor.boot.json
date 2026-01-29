@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "GascarWeb",
   "resources": {
-    "hash": "sha256-r8Xd+JsuYWIeyp8CAs8RkbN16GBZ1ziJiLQUT994tzc=",
+    "hash": "sha256-2SMNW9INBpa7lIefvHdjhFQ3uehEU035cbUsyc5Ew28=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -214,10 +214,10 @@
       "mscorlib.wasm": "sha256-K9gNrsN9UmPqLs6J/FrkiKpmkVGnHjjqUsc7YGvesCY=",
       "netstandard.wasm": "sha256-4emjlXLM9qW3t2tlII20SDylBgG4ueI0wy9nh5FMd8g=",
       "System.Private.CoreLib.wasm": "sha256-2DN4v7I/tabltDEPdIO8sDBB0tY8zOm+0CvHbMssXW4=",
-      "GascarWeb.wasm": "sha256-ezHQ2qgZo8t/F685Roil8cUZwlol1GQyH5YV3+1lVFs="
+      "GascarWeb.wasm": "sha256-wvkhaACSSR1LueTTrK9+w7gn8UiPaCrziyBQzWrGWT4="
     },
     "pdb": {
-      "GascarWeb.pdb": "sha256-2Ob4aYsLjVGzHJ3D5y/2DYRtrsV8z9kYvUVtjVf33aE="
+      "GascarWeb.pdb": "sha256-3CBADn+NRmuScq6wl9uA2Oq3chWfObQevnF8DXV0Vws="
     }
   },
   "cacheBootResources": true,

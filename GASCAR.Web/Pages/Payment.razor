@@ -2,6 +2,9 @@
 @using GASCAR.Web.Models
 @using GASCAR.Web.Services
 
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
 @inject ApiService Api
 
 <h3>💳 Pagamenti</h3>
@@ -33,6 +36,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        if (!AuthState.IsAuthenticated || string.IsNullOrEmpty(AuthState.Token))
+        {
+            Navigation.NavigateTo("/login", true);
+            return;
+        }
         payments = await Api.GetPayments();
     }
 }

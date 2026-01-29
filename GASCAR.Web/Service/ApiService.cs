@@ -4,9 +4,8 @@ using System.Net.Http.Headers;
 
 namespace GASCAR.Web.Services
 {
+    public class ApiService{
 
-    public class ApiService
-    {
         private readonly HttpClient _http;
         private readonly AuthStateService _auth;
 
@@ -15,6 +14,29 @@ namespace GASCAR.Web.Services
             _http = http;
             _auth = auth;
         }
+
+
+        public async Task<ChargingRequestDto?> GetCurrentChargingRequest()
+        {
+            try
+            {
+                AttachToken();
+                var res = await _http.GetAsync("api/charging/current");
+                if (!res.IsSuccessStatusCode) return null;
+                return await res.Content.ReadFromJsonAsync<ChargingRequestDto>();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore GetCurrentChargingRequest: {ex.Message}");
+                return null;
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout GetCurrentChargingRequest - API non risponde");
+                return null;
+            }
+        }
+
 
         public async Task<bool> UpdatePayment(PaymentDto payment)
         {
@@ -167,17 +189,35 @@ namespace GASCAR.Web.Services
             try
             {
                 AttachToken();
-                return await _http.GetFromJsonAsync<List<CarDto>>("api/cars")
-                       ?? new();
+                var response = await _http.GetAsync("api/cars");
+                Console.WriteLine($"🚗 GetCars Status: {response.StatusCode}");
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var cars = await response.Content.ReadFromJsonAsync<List<CarDto>>();
+                    Console.WriteLine($"✅ GetCars: {cars?.Count ?? 0} auto caricate");
+                    return cars ?? new();
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"❌ GetCars fallito: {response.StatusCode} - {errorContent}");
+                    return new();
+                }
             }
             catch (HttpRequestException ex)
             {
-                Console.WriteLine($"❌ Errore GetCars: {ex.Message}");
+                Console.WriteLine($"❌ Errore GetCars (HttpRequestException): {ex.Message}");
                 return new();
             }
             catch (TaskCanceledException)
             {
                 Console.WriteLine("⏱️ Timeout GetCars - API non risponde");
+                return new();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Errore GetCars (Exception): {ex.GetType().Name} - {ex.Message}");
                 return new();
             }
         }
@@ -210,17 +250,35 @@ namespace GASCAR.Web.Services
             try
             {
                 AttachToken();
-                return await _http.GetFromJsonAsync<List<PaymentDto>>("api/payments")
-                       ?? new();
+                var response = await _http.GetAsync("api/payments");
+                Console.WriteLine($"💳 GetPayments Status: {response.StatusCode}");
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var payments = await response.Content.ReadFromJsonAsync<List<PaymentDto>>();
+                    Console.WriteLine($"✅ GetPayments: {payments?.Count ?? 0} metodi caricati");
+                    return payments ?? new();
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"❌ GetPayments fallito: {response.StatusCode} - {errorContent}");
+                    return new();
+                }
             }
             catch (HttpRequestException ex)
             {
-                Console.WriteLine($"❌ Errore GetPayments: {ex.Message}");
+                Console.WriteLine($"❌ Errore GetPayments (HttpRequestException): {ex.Message}");
                 return new();
             }
             catch (TaskCanceledException)
             {
                 Console.WriteLine("⏱️ Timeout GetPayments - API non risponde");
+                return new();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Errore GetPayments (Exception): {ex.GetType().Name} - {ex.Message}");
                 return new();
             }
         }
@@ -310,4 +368,5 @@ namespace GASCAR.Web.Services
             return result ?? new();
         }
     }
+
 }

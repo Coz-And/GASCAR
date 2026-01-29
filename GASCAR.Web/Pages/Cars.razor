@@ -1,6 +1,9 @@
 @page "/cars"
 @using GASCAR.Web.Services
 
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
 @inject ApiService Api
 
 <h3>Le mie auto</h3>
@@ -24,6 +27,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        if (!AuthState.IsAuthenticated || string.IsNullOrEmpty(AuthState.Token))
+        {
+            Navigation.NavigateTo("/login", true);
+            return;
+        }
         cars = await Api.GetCars();
     }
 }
