@@ -38,6 +38,15 @@
         </div>
     }
 
+    <!-- Mappa Colonnine -->
+    <div class="mb-4">
+        <h5 style="color: #333;">🗺️ Mappa Colonnine</h5>
+        <div class="alert alert-info">
+            Seleziona una colonnina dalla mappa o dalla lista qui sotto, poi scegli l'auto da ricaricare.
+        </div>
+        <div id="googleMap" style="height: 420px; width: 100%; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
+    </div>
+
     <!-- Selezione Colonnina - SEMPRE VISIBILE -->
     <div class="mb-4">
         <h5 style="color: #333;">🔌 Colonnine Disponibili</h5>
@@ -266,7 +275,7 @@
         await InitMapAsync();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         // La mappa viene inizializzata in OnInitializedAsync dopo aver caricato i dati
         // Non fare nulla qui per evitare doppia inizializzazione
