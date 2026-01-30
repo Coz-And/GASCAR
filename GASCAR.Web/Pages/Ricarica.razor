@@ -1,4 +1,3 @@
-@page "/ricarica"
 @using GASCAR.Web.Services
 @using GASCAR.Web.Models
 
@@ -216,6 +215,7 @@
 
     void SelectStation(ParkingSpotDto station)
     {
+        if (station.IsOccupied) return;
         selectedStationId = station.Id;
         selectedStation = station;
     }
@@ -229,7 +229,7 @@
             return;
         }
 
-        var ok = await Api.RequestCharging(selectedCarId);
+        var ok = await Api.RequestCharging(selectedCarId, selectedCar?.TargetChargePercent ?? 100, selectedStationId);
         if (ok)
         {
             requested = true;

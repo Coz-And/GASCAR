@@ -39,8 +39,19 @@ public class MWBotService
         await Task.Delay(TimeSpan.FromMinutes(next.EstimatedWaitMinutes));
 
         next.Status = "Completed";
+        next.EndTime = DateTime.UtcNow;
         mwbot.IsAvailable = true;
         mwbot.CurrentCarId = null;
+
+        if (next.StationId.HasValue)
+        {
+            var spot = await _db.ParkingSpots.FirstOrDefaultAsync(s => s.Id == next.StationId.Value);
+            if (spot != null)
+            {
+                spot.IsOccupied = false;
+                spot.CurrentCarId = null;
+            }
+        }
 
         // 🔧 FIX: car può essere null
         var car = await _db.Cars.FindAsync(next.CarId);

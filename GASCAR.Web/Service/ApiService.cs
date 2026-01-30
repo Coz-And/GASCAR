@@ -106,9 +106,16 @@ namespace GASCAR.Web.Services
         {
             try
             {
-                AttachToken();
-                var result = await _http.GetFromJsonAsync<List<ChargingStationDto>>("api/admin/stations");
-                return result ?? new();
+                var spots = await GetPublicStations();
+                return spots.Select(s => new ChargingStationDto
+                {
+                    Id = s.Id,
+                    Name = !string.IsNullOrWhiteSpace(s.Address) ? s.Address : $"Colonnina #{s.Id}",
+                    Location = s.Address ?? string.Empty,
+                    Status = s.IsOccupied ? "Occupata" : "Disponibile",
+                    Latitude = s.Latitude,
+                    Longitude = s.Longitude
+                }).ToList();
             }
             catch (HttpRequestException ex)
             {
@@ -126,7 +133,7 @@ namespace GASCAR.Web.Services
         {
             try
             {
-                var result = await _http.GetFromJsonAsync<List<ParkingSpotDto>>("api/parking/spots");
+                var result = await _http.GetFromJsonAsync<List<ParkingSpotDto>>("api/stations/real");
                 return result ?? new();
             }
             catch (HttpRequestException ex)
@@ -222,6 +229,11 @@ namespace GASCAR.Web.Services
             }
         }
 
+        private class AuthTokenResponse
+        {
+            public string token { get; set; } = string.Empty;
+        }
+
         public async Task<bool> Login(LoginDto dto)
         {
             try
@@ -229,8 +241,10 @@ namespace GASCAR.Web.Services
                 var res = await _http.PostAsJsonAsync("api/auth/login", dto);
                 if (!res.IsSuccessStatusCode) return false;
 
-                var token = await res.Content.ReadAsStringAsync();
-                _auth.SetToken(token.Replace("\"", ""));
+                var payload = await res.Content.ReadFromJsonAsync<AuthTokenResponse>();
+                if (payload == null || string.IsNullOrWhiteSpace(payload.token)) return false;
+
+                _auth.SetToken(payload.token);
                 return true;
             }
             catch (HttpRequestException ex)
@@ -283,12 +297,17 @@ namespace GASCAR.Web.Services
             }
         }
 
-        public async Task<bool> RequestCharging(int carId)
+        public async Task<bool> RequestCharging(int carId, double targetPercent = 100, int? stationId = null)
         {
             try
             {
                 AttachToken();
-                var res = await _http.PostAsync($"api/charging/{carId}", null);
+                var url = $"api/charging/request?carId={carId}&targetPercent={targetPercent}";
+                if (stationId.HasValue && stationId.Value > 0)
+                {
+                    url += $"&stationId={stationId.Value}";
+                }
+                var res = await _http.PostAsync(url, null);
                 return res.IsSuccessStatusCode;
             }
             catch (HttpRequestException ex)
@@ -299,6 +318,26 @@ namespace GASCAR.Web.Services
             catch (TaskCanceledException)
             {
                 Console.WriteLine("⏱️ Timeout RequestCharging - API non risponde");
+                return false;
+            }
+        }
+
+        public async Task<bool> StopCharging(int carId)
+        {
+            try
+            {
+                AttachToken();
+                var res = await _http.PostAsync($"api/charging/stop?carId={carId}", null);
+                return res.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"❌ Errore StopCharging: {ex.Message}");
+                return false;
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("⏱️ Timeout StopCharging - API non risponde");
                 return false;
             }
         }

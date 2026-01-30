@@ -21,10 +21,24 @@ public class CarsController : ControllerBase
     public async Task<IActionResult> GetCars()
     {
         var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        Console.WriteLine($"[CarsController] UserIdClaim: {userIdClaim}");
+        
         if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+        {
+            Console.WriteLine("[CarsController] Unauthorized - UserId non valido");
             return Unauthorized();
+        }
         
         var cars = await _db.Cars.Where(c => c.UserId == userId).ToListAsync();
+        Console.WriteLine($"[CarsController] UserId={userId}, Auto trovate: {cars.Count}");
+        
+        var allCars = await _db.Cars.ToListAsync();
+        Console.WriteLine($"[CarsController] Totale auto nel database: {allCars.Count}");
+        foreach (var c in allCars)
+        {
+            Console.WriteLine($"  - Car ID={c.Id}, Model={c.Model}, UserId={c.UserId}");
+        }
+        
         return Ok(cars);
     }
 

@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<MWBotService>();
 builder.Services.AddScoped<PaymentService>();
+builder.Services.AddHttpClient<OpenChargeMapService>();
 
 builder.Services.AddCors(opt =>
 {

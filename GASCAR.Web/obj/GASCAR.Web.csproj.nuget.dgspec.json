@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\GitHub\\GASCAR\\gascar.web\\GASCAR.Web.csproj": {}
+    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.web\\GASCAR.Web.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\GitHub\\GASCAR\\gascar.web\\GASCAR.Web.csproj": {
+    "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.web\\GASCAR.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\gascar.web\\GASCAR.Web.csproj",
+        "projectUniqueName": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.web\\GASCAR.Web.csproj",
         "projectName": "GascarWeb",
-        "projectPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.web\\GASCAR.Web.csproj",
-        "packagesPath": "C:\\Users\\cozan\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\GitHub\\GASCAR\\gascar.web\\obj\\",
+        "projectPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.web\\GASCAR.Web.csproj",
+        "packagesPath": "C:\\Users\\andrea.cozzi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\cozan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\andrea.cozzi\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,8 +37,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "10.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -55,13 +54,13 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.22, )",
+              "version": "[8.0.23, )",
               "autoReferenced": true
             },
             "Microsoft.NET.Sdk.WebAssembly.Pack": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.1, )",
+              "version": "[8.0.23, )",
               "autoReferenced": true
             },
             "System.IdentityModel.Tokens.Jwt": {
@@ -82,20 +81,8 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.22, 8.0.22]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.22, 8.0.22]"
-            },
-            {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[8.0.22, 8.0.22]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.22, 8.0.22]"
+              "version": "[8.0.23, 8.0.23]"
             }
           ],
           "frameworkReferences": {
@@ -103,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

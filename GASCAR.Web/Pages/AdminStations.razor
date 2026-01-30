@@ -31,33 +31,24 @@ else
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Posizione</th>
+                            <th>ID</th>
+                            <th>Indirizzo</th>
                             <th>Stato</th>
-                            <th>Azioni</th>
+                            <th>Coordinate</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var station in stations)
                         {
                             <tr>
-                                <td>@station.Name</td>
-                                <td>@station.Location</td>
+                                <td>@station.Id</td>
+                                <td>@(string.IsNullOrWhiteSpace(station.Address) ? "-" : station.Address)</td>
                                 <td>
-                                    <span class="badge bg-@(station.Status == "Disponibile" ? "success" : station.Status == "Occupata" ? "warning" : "danger")">
-                                        @station.Status
+                                    <span class="badge bg-@(station.IsOccupied ? "warning" : "success")">
+                                        @(station.IsOccupied ? "Occupata" : "Disponibile")
                                     </span>
                                 </td>
-                                <td>
-                                    @if (station.Status == "Disponibile")
-                                    {
-                                        <button class="btn btn-sm btn-warning" @onclick='() => ChangeStatus(station, "Manutenzione")'>In Manutenzione</button>
-                                    }
-                                    else if (station.Status == "Manutenzione")
-                                    {
-                                        <button class="btn btn-sm btn-success" @onclick='() => ChangeStatus(station, "Disponibile")'>Rendi Disponibile</button>
-                                    }
-                                </td>
+                                <td>@station.Latitude.ToString("0.0000"), @station.Longitude.ToString("0.0000")</td>
                             </tr>
                         }
                     </tbody>
@@ -72,32 +63,20 @@ else
 }
 
 @code {
-    private List<ChargingStationDto>? stations;
+    private List<ParkingSpotDto>? stations;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         if (AuthState.IsAuthenticated)
         {
             try
             {
-                // Mock data for demonstration
-                stations = new List<ChargingStationDto>
-                {
-                    new ChargingStationDto { Name = "Stazione Centro", Status = "Disponibile", Location = "Via Roma 1" },
-                    new ChargingStationDto { Name = "Parcheggio Nord", Status = "Occupata", Location = "Via Milano 10" },
-                    new ChargingStationDto { Name = "Stazione Sud", Status = "Manutenzione", Location = "Via Napoli 5" }
-                };
+                stations = await Api.GetPublicStations();
             }
             catch
             {
-                stations = new List<ChargingStationDto>();
+                stations = new List<ParkingSpotDto>();
             }
         }
-    }
-
-    private void ChangeStatus(ChargingStationDto station, string newStatus)
-    {
-        station.Status = newStatus;
-        // In a real app, call API to update
     }
 }

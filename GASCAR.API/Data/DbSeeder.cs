@@ -30,9 +30,10 @@ public static class DbSeeder
         }
 
         // Seed utente base predefinito
+        User? baseUser = null;
         if (!db.Users.Any(u => u.Email == "utente@gascar.com"))
         {
-            var baseUser = new User
+            baseUser = new User
             {
                 Email = "utente@gascar.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Utente123!"),
@@ -40,6 +41,25 @@ public static class DbSeeder
                 UserType = "Base"
             };
             db.Users.Add(baseUser);
+            db.SaveChanges(); // Salva per ottenere l'ID
+        }
+        else
+        {
+            baseUser = db.Users.FirstOrDefault(u => u.Email == "utente@gascar.com");
+        }
+
+        // Seed Auto per utente base
+        if (baseUser != null && !db.Cars.Any(c => c.UserId == baseUser.Id))
+        {
+            var testCar = new Car
+            {
+                UserId = baseUser.Id,
+                Model = "Tesla Model 3",
+                BatteryCapacityKw = 60,
+                CurrentChargePercent = 45,
+                TargetChargePercent = 80
+            };
+            db.Cars.Add(testCar);
         }
 
         // Seed MWBot (Mobile Waiter Bot)
@@ -59,17 +79,6 @@ public static class DbSeeder
             ChargingCostPerKw = 0.35d
         };
         db.Tariffs.Add(tariff);
-
-        // Seed 20 Parking Spots
-        for (int i = 1; i <= 20; i++)
-        {
-            db.ParkingSpots.Add(new ParkingSpot
-            {
-                Id = i,
-                IsOccupied = false,
-                CurrentCarId = null
-            });
-        }
 
         db.SaveChanges();
     }

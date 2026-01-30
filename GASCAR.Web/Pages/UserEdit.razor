@@ -32,27 +32,9 @@ else
             </div>
             <button type="submit" class="btn btn-success">Salva Modifiche</button>
         </EditForm>
-
-        <hr />
-        <h4 class="mt-4">Registra una nuova auto</h4>
-        <EditForm Model="carModel" OnValidSubmit="HandleCarSubmit">
-            <div class="mb-3">
-                <label class="form-label">Modello Auto</label>
-                <InputText class="form-control" @bind-Value="carModel.Model" placeholder="Es: Fiat 500" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Capacità Batteria (kWh)</label>
-                <InputNumber class="form-control" @bind-Value="carModel.BatteryCapacityKw" placeholder="Es: 40" />
-            </div>
-            <button type="submit" class="btn btn-primary">Registra Auto</button>
-        </EditForm>
         @if (!string.IsNullOrEmpty(message))
         {
             <div class="alert alert-info mt-3">@message</div>
-        }
-        @if (!string.IsNullOrEmpty(carMessage))
-        {
-            <div class="alert alert-success mt-3">@carMessage</div>
         }
     </div>
 }
@@ -61,8 +43,6 @@ else
 
     UserEditModel userModel = new();
     string? message;
-    CarDto carModel = new();
-    string? carMessage;
 
     protected override void OnInitialized()
     {
@@ -78,26 +58,6 @@ else
     {
         // Qui andrebbe la logica di salvataggio dati utente
         message = "Dati aggiornati con successo! (mock)";
-    }
-
-    async Task HandleCarSubmit()
-    {
-        carMessage = string.Empty;
-        if (string.IsNullOrWhiteSpace(carModel.Model) || carModel.BatteryCapacityKw <= 0)
-        {
-            carMessage = "❌ Inserisci modello e capacità batteria valida.";
-            return;
-        }
-        var ok = await Api.CreateCar(carModel);
-        if (ok)
-        {
-            carMessage = $"✅ Auto '{carModel.Model}' registrata con successo!";
-            carModel = new CarDto();
-        }
-        else
-        {
-            carMessage = "❌ Errore durante la registrazione dell'auto.";
-        }
     }
 
     public class UserEditModel

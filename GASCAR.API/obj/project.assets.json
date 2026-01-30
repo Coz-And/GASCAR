@@ -4287,19 +4287,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cozan\\.nuget\\packages\\": {}
+    "C:\\Users\\andrea.cozzi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
+      "projectUniqueName": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj",
       "projectName": "GASCAR.API",
-      "projectPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\GASCAR.API.csproj",
-      "packagesPath": "C:\\Users\\cozan\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\GitHub\\GASCAR\\GASCAR.API\\obj\\",
+      "projectPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\GASCAR.API.csproj",
+      "packagesPath": "C:\\Users\\andrea.cozzi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andrea.cozzi\\Documents\\GitHub\\Gascar\\GASCAR\\gascar.api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\cozan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\andrea.cozzi\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4322,8 +4322,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "10.0.100"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -4383,24 +4382,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.22, 8.0.22]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.22, 8.0.22]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.22, 8.0.22]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.22, 8.0.22]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4409,7 +4390,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

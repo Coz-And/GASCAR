@@ -1,10 +1,19 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text.Json;
+using Microsoft.JSInterop;
 
 namespace GASCAR.Web.Services;
 
 public class AuthStateService
 {
+    private readonly IJSRuntime _js;
+
+    public AuthStateService(IJSRuntime js)
+    {
+        _js = js;
+    }
+
     public string? Token { get; private set; }
     public string? UserRole { get; private set; }
     public string? Username { get; private set; }
@@ -14,9 +23,56 @@ public class AuthStateService
 
     public void SetToken(string token)
     {
-        Token = token;
-        UserRole = ExtractRoleFromToken(token);
-        Username = ExtractUsernameFromToken(token);
+        var normalized = NormalizeToken(token);
+        if (string.IsNullOrEmpty(normalized)) return;
+
+        Token = normalized;
+        UserRole = ExtractRoleFromToken(normalized);
+        Username = ExtractUsernameFromToken(normalized);
+        _ = _js.InvokeVoidAsync("localStorage.setItem", "authToken", Token);
+    }
+
+    public async Task LoadTokenAsync()
+    {
+        if (!string.IsNullOrEmpty(Token)) return;
+
+        var stored = await _js.InvokeAsync<string>("localStorage.getItem", "authToken");
+        var normalized = NormalizeToken(stored);
+        if (!string.IsNullOrEmpty(normalized))
+        {
+            Token = normalized;
+            UserRole = ExtractRoleFromToken(normalized);
+            Username = ExtractUsernameFromToken(normalized);
+        }
+    }
+
+    private static string? NormalizeToken(string? raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw)) return null;
+
+        var trimmed = raw.Trim();
+        if (trimmed.StartsWith("{") && trimmed.Contains("token"))
+        {
+            try
+            {
+                using var doc = JsonDocument.Parse(trimmed);
+                if (doc.RootElement.TryGetProperty("token", out var tokenProp))
+                {
+                    return tokenProp.GetString();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        if (trimmed.StartsWith("token:", StringComparison.OrdinalIgnoreCase))
+        {
+            return trimmed.Substring("token:".Length).Trim();
+        }
+
+        return trimmed;
     }
 
     public void Logout()
@@ -24,6 +80,7 @@ public class AuthStateService
         Token = null;
         UserRole = null;
         Username = null;
+        _ = _js.InvokeVoidAsync("localStorage.removeItem", "authToken");
     }
 
     private string? ExtractRoleFromToken(string token)

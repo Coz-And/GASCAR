@@ -2,6 +2,7 @@
 @using GASCAR.Web.Services
 @using GASCAR.Web.Models
 @inject AuthStateService AuthState
+@inject ApiService Api
 @inject NavigationManager Navigation
 
 @if (!AuthState.IsAuthenticated)
@@ -14,54 +15,29 @@
 else
 {
     <div class="container mt-4">
-        <h2 class="mb-4">Modifica Colonnine</h2>
-
-        <button class="btn btn-primary mb-3" @onclick="ShowAddForm">Aggiungi Colonnina</button>
-
-        @if (showAddForm)
-        {
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5>Aggiungi Nuova Colonnina</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Nome</label>
-                            <input type="text" class="form-control" @bind="newStation.Name" />
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Posizione</label>
-                            <input type="text" class="form-control" @bind="newStation.Location" />
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-success me-2" @onclick="AddStation">Aggiungi</button>
-                            <button class="btn btn-secondary" @onclick="HideAddForm">Annulla</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+        <h2 class="mb-4">Colonnine (Open Charge Map)</h2>
+        <div class="alert alert-info">
+            Le colonnine sono sincronizzate da Open Charge Map e sono in sola lettura.
+        </div>
 
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Posizione</th>
-                        <th>Azioni</th>
+                        <th>ID</th>
+                        <th>Indirizzo</th>
+                        <th>Stato</th>
+                        <th>Coordinate</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var station in stations)
                     {
                         <tr>
-                            <td>@station.Name</td>
-                            <td>@station.Location</td>
-                            <td>
-                                <button class="btn btn-sm btn-warning me-2" @onclick="() => EditStation(station)">Modifica</button>
-                                <button class="btn btn-sm btn-danger" @onclick="() => DeleteStation(station)">Elimina</button>
-                            </td>
+                            <td>@station.Id</td>
+                            <td>@(string.IsNullOrWhiteSpace(station.Address) ? "-" : station.Address)</td>
+                            <td>@(station.IsOccupied ? "Occupata" : "Disponibile")</td>
+                            <td>@station.Latitude.ToString("0.0000"), @station.Longitude.ToString("0.0000")</td>
                         </tr>
                     }
                 </tbody>
@@ -75,47 +51,13 @@ else
 }
 
 @code {
-    private List<ChargingStationDto> stations = new();
-    private bool showAddForm = false;
-    private ChargingStationDto newStation = new();
+    private List<ParkingSpotDto> stations = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        // Mock data
-        stations = new List<ChargingStationDto>
+        if (AuthState.IsAuthenticated)
         {
-            new ChargingStationDto { Name = "Stazione Centro", Location = "Via Roma 1" },
-            new ChargingStationDto { Name = "Parcheggio Nord", Location = "Via Milano 10" },
-            new ChargingStationDto { Name = "Stazione Sud", Location = "Via Napoli 5" }
-        };
-    }
-
-    private void ShowAddForm()
-    {
-        showAddForm = true;
-        newStation = new ChargingStationDto();
-    }
-
-    private void HideAddForm()
-    {
-        showAddForm = false;
-    }
-
-    private void AddStation()
-    {
-        stations.Add(new ChargingStationDto { Name = newStation.Name, Location = newStation.Location, Status = "Disponibile" });
-        HideAddForm();
-    }
-
-    private void EditStation(ChargingStationDto station)
-    {
-        // In a real app, open edit modal
-        // For demo, just show alert
-        // You can implement edit functionality
-    }
-
-    private void DeleteStation(ChargingStationDto station)
-    {
-        stations.Remove(station);
+            stations = await Api.GetPublicStations();
+        }
     }
 }

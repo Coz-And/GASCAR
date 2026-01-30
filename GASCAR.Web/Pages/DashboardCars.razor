@@ -1,0 +1,358 @@
+@page "/dashboard/cars"
+@using GASCAR.Web.Models
+@using GASCAR.Web.Services
+@inject ApiService Api
+@inject AuthStateService AuthState
+@inject NavigationManager Navigation
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div class="text-center mt-5">
+        <h4>Accesso richiesto</h4>
+        <a href="/login" class="btn btn-primary">Accedi</a>
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Gestione Auto & Ricarica</h2>
+            <a href="/dashboard" class="btn btn-secondary">Torna alla Dashboard</a>
+        </div>
+
+        @if (!string.IsNullOrEmpty(pageMessage))
+        {
+            <div class="alert @(isError ? "alert-danger" : "alert-success")">@pageMessage</div>
+        }
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">➕ Inserisci nuova auto</h5>
+                        <EditForm Model="newCar" OnValidSubmit="HandleCreate">
+                            <div class="mb-3">
+                                <label class="form-label">Modello</label>
+                                <InputText class="form-control" @bind-Value="newCar.Model" placeholder="Es: Fiat 500" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Capacità Batteria (kWh)</label>
+                                <InputNumber class="form-control" @bind-Value="newCar.BatteryCapacityKw" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Carica Attuale (%)</label>
+                                <InputNumber class="form-control" @bind-Value="newCar.CurrentChargePercent" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Carica Target (%)</label>
+                                <InputNumber class="form-control" @bind-Value="newCar.TargetChargePercent" />
+                            </div>
+                            <button class="btn btn-primary" type="submit">Salva Auto</button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">✏️ Modifica auto</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Seleziona Auto</label>
+                            <select class="form-select" @onchange="SelectEditCar">
+                                <option value="">-- Scegli un'auto --</option>
+                                @foreach (var car in cars)
+                                {
+                                    <option value="@car.Id">@car.Model (@car.CurrentChargePercent%)</option>
+                                }
+                            </select>
+                        </div>
+
+                        @if (editCar != null && editCar.Id > 0)
+                        {
+                            <EditForm Model="editCar" OnValidSubmit="HandleUpdate">
+                                <div class="mb-3">
+                                    <label class="form-label">Modello</label>
+                                    <InputText class="form-control" @bind-Value="editCar.Model" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Capacità Batteria (kWh)</label>
+                                    <InputNumber class="form-control" @bind-Value="editCar.BatteryCapacityKw" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Carica Attuale (%)</label>
+                                    <InputNumber class="form-control" @bind-Value="editCar.CurrentChargePercent" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Carica Target (%)</label>
+                                    <InputNumber class="form-control" @bind-Value="editCar.TargetChargePercent" />
+                                </div>
+                                <button class="btn btn-success" type="submit">Aggiorna Auto</button>
+                            </EditForm>
+                        }
+                        else
+                        {
+                            <div class="text-muted">Seleziona un'auto per modificarla.</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-1">
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">🚗 Le tue auto</h5>
+                        @if (cars.Count == 0)
+                        {
+                            <p class="text-muted">Nessuna auto registrata.</p>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-striped align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Modello</th>
+                                            <th>Carica</th>
+                                            <th>Batteria</th>
+                                            <th>Target</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var car in cars)
+                                        {
+                                            <tr>
+                                                <td>@car.Model</td>
+                                                <td>@car.CurrentChargePercent%</td>
+                                                <td>@car.BatteryCapacityKw kWh</td>
+                                                <td>@car.TargetChargePercent%</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">⚡ Attiva ricarica</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Auto</label>
+                            <select class="form-select" @bind="chargeCarId">
+                                <option value="0">-- Scegli un'auto --</option>
+                                @foreach (var car in cars)
+                                {
+                                    <option value="@car.Id">@car.Model (@car.CurrentChargePercent%)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Percentuale target</label>
+                            <InputNumber class="form-control" @bind-Value="chargeTargetPercent" />
+                            <div class="form-text">Imposta il target desiderato (0-100%).</div>
+                        </div>
+                        <button class="btn btn-warning" @onclick="ActivateCharging" disabled="@(chargeCarId == 0)">
+                            Avvia Ricarica
+                        </button>
+                        @if (!string.IsNullOrEmpty(chargingMessage))
+                        {
+                            <div class="alert mt-3 @(chargingError ? "alert-danger" : "alert-success")">
+                                @chargingMessage
+                            </div>
+                        }
+                        <div class="mt-3">
+                            <a href="/charging" class="btn btn-outline-secondary btn-sm">Vai alla pagina ricarica completa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<CarDto> cars = new();
+    private CarDto newCar = new() { TargetChargePercent = 80 };
+    private CarDto? editCar;
+    private int selectedEditCarId;
+    private string? pageMessage;
+    private bool isError;
+
+    private int chargeCarId;
+    private double chargeTargetPercent = 80;
+    private string? chargingMessage;
+    private bool chargingError;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AuthState.LoadTokenAsync();
+
+        if (!AuthState.IsAuthenticated || string.IsNullOrEmpty(AuthState.Token))
+        {
+            Navigation.NavigateTo("/login", true);
+            return;
+        }
+
+        await LoadCars();
+        if (cars.Count > 0)
+        {
+            chargeCarId = cars[0].Id;
+        }
+    }
+
+    private async Task LoadCars()
+    {
+        cars = await Api.GetCars();
+    }
+
+    private void SelectEditCar(ChangeEventArgs e)
+    {
+        pageMessage = null;
+        isError = false;
+
+        if (int.TryParse(e.Value?.ToString(), out int carId))
+        {
+            selectedEditCarId = carId;
+            var car = cars.FirstOrDefault(c => c.Id == carId);
+            editCar = car == null ? null : CloneCar(car);
+        }
+        else
+        {
+            selectedEditCarId = 0;
+            editCar = null;
+        }
+    }
+
+    private async Task HandleCreate()
+    {
+        pageMessage = null;
+        isError = false;
+
+        if (!IsCarValid(newCar, out pageMessage))
+        {
+            isError = true;
+            return;
+        }
+
+        var ok = await Api.CreateCar(newCar);
+        if (ok)
+        {
+            pageMessage = "✅ Auto registrata con successo";
+            newCar = new CarDto { TargetChargePercent = 80 };
+            await LoadCars();
+        }
+        else
+        {
+            pageMessage = "❌ Errore durante la registrazione dell'auto";
+            isError = true;
+        }
+    }
+
+    private async Task HandleUpdate()
+    {
+        pageMessage = null;
+        isError = false;
+
+        if (editCar == null || editCar.Id == 0)
+        {
+            pageMessage = "❌ Seleziona un'auto valida";
+            isError = true;
+            return;
+        }
+
+        if (!IsCarValid(editCar, out pageMessage))
+        {
+            isError = true;
+            return;
+        }
+
+        var ok = await Api.UpdateCar(editCar);
+        if (ok)
+        {
+            pageMessage = "✅ Auto aggiornata con successo";
+            await LoadCars();
+            var refreshed = cars.FirstOrDefault(c => c.Id == editCar.Id);
+            editCar = refreshed == null ? null : CloneCar(refreshed);
+        }
+        else
+        {
+            pageMessage = "❌ Errore durante l'aggiornamento dell'auto";
+            isError = true;
+        }
+    }
+
+    private async Task ActivateCharging()
+    {
+        chargingMessage = null;
+        chargingError = false;
+
+        if (chargeCarId == 0)
+        {
+            chargingMessage = "❌ Seleziona un'auto";
+            chargingError = true;
+            return;
+        }
+
+        if (chargeTargetPercent < 0 || chargeTargetPercent > 100)
+        {
+            chargingMessage = "❌ Percentuale target non valida";
+            chargingError = true;
+            return;
+        }
+
+        var ok = await Api.RequestCharging(chargeCarId, chargeTargetPercent);
+        if (ok)
+        {
+            chargingMessage = "✅ Ricarica avviata con successo";
+        }
+        else
+        {
+            chargingMessage = "❌ Errore durante l'avvio della ricarica";
+            chargingError = true;
+        }
+    }
+
+    private static bool IsCarValid(CarDto car, out string? error)
+    {
+        error = null;
+        if (string.IsNullOrWhiteSpace(car.Model))
+        {
+            error = "❌ Inserisci il modello dell'auto";
+            return false;
+        }
+        if (car.BatteryCapacityKw <= 0)
+        {
+            error = "❌ Inserisci una capacità batteria valida";
+            return false;
+        }
+        if (car.CurrentChargePercent < 0 || car.CurrentChargePercent > 100)
+        {
+            error = "❌ Carica attuale non valida";
+            return false;
+        }
+        if (car.TargetChargePercent < 0 || car.TargetChargePercent > 100)
+        {
+            error = "❌ Carica target non valida";
+            return false;
+        }
+        return true;
+    }
+
+    private static CarDto CloneCar(CarDto car)
+    {
+        return new CarDto
+        {
+            Id = car.Id,
+            Model = car.Model,
+            BatteryCapacityKw = car.BatteryCapacityKw,
+            CurrentChargePercent = car.CurrentChargePercent,
+            TargetChargePercent = car.TargetChargePercent
+        };
+    }
+}

@@ -5,6 +5,9 @@
 @using GASCAR.Web.Shared
 
 @using Microsoft.AspNetCore.Components.Web
+@using GASCAR.Web.Services
+
+@inject AuthStateService AuthState
 
 <ErrorBoundary>
     <ChildContent>
@@ -31,6 +34,11 @@
 
 @code {
     [Inject] IJSRuntime JS { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await AuthState.LoadTokenAsync();
+    }
 
     private void ReloadPage()
     {
